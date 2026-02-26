@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EDxPlain — Patient-Friendly Emergency Discharge Explanations</title>
+    <title>EDxPlain — AI-Powered Patient-Friendly Discharge Explanations</title>
     <meta name="description" content="EDxPlain transforms technical Emergency Department discharge notes into clear, safe patient-friendly explanations using AI. Winner of GenAI Health Hack 2026.">
-    <meta property="og:title" content="EDxPlain — Patient-Friendly Emergency Discharge Explanations">
-    <meta property="og:description" content="AI-powered system that transforms complex ED discharge notes into clear, safe patient-friendly explanations. Winner of GenAI Health Hack 2026.">
+    <meta property="og:title" content="EDxPlain — AI-Powered Patient-Friendly Discharge Explanations">
+    <meta property="og:description" content="Transforming complex ED discharge notes into clear, safe patient-friendly explanations. GenAI Health Hack 2026 Winner.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aiojpineda.github.io/edxplain-site/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <style>
         :root {
             --primary: #0F6FFF;
@@ -19,1281 +20,738 @@
             --primary-light: #E8F1FF;
             --accent: #00C896;
             --accent-dark: #00A07A;
+            --accent-light: #E6FBF5;
+            --warning: #F59E0B;
+            --danger: #EF4444;
             --dark: #0D1B2A;
             --gray-900: #1B2838;
             --gray-700: #374151;
             --gray-500: #6B7280;
+            --gray-400: #9CA3AF;
             --gray-300: #D1D5DB;
+            --gray-200: #E5E7EB;
             --gray-100: #F3F4F6;
+            --gray-50: #F9FAFB;
             --white: #FFFFFF;
             --gradient-hero: linear-gradient(135deg, #0D1B2A 0%, #1B3A5C 50%, #0F6FFF 100%);
             --gradient-accent: linear-gradient(135deg, #0F6FFF 0%, #00C896 100%);
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
             --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
             --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
             --radius: 12px;
+            --radius-lg: 20px;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--gray-700);
-            line-height: 1.6;
-            background: var(--white);
+            color: var(--gray-700); line-height: 1.6; background: var(--white);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ─── Navigation ─── */
+        /* ── Nav ── */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255,255,255,0.97); backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
         }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 72px;
-        }
-
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--dark);
-            text-decoration: none;
-            letter-spacing: -0.02em;
-        }
-
-        .nav-logo span {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--gray-500);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-cta {
-            background: var(--primary);
-            color: var(--white) !important;
-            padding: 0.5rem 1.2rem;
-            border-radius: 8px;
-            transition: background 0.2s !important;
-        }
-
-        .nav-cta:hover {
-            background: var(--primary-dark);
-        }
-
-        /* ─── Hero Section ─── */
-        .hero {
-            background: var(--gradient-hero);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding-top: 72px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 80%;
-            height: 200%;
-            background: radial-gradient(ellipse, rgba(15, 111, 255, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -10%;
-            left: -10%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(ellipse, rgba(0, 200, 150, 0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(0, 200, 150, 0.15);
-            color: var(--accent);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(0, 200, 150, 0.3);
-        }
-
-        .hero-badge svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--white);
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero h1 .highlight {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            max-width: 540px;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 2.5rem;
-            margin-top: 2.5rem;
-        }
-
-        .hero-stat {
-            text-align: left;
-        }
-
-        .hero-stat .number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--accent);
-        }
-
-        .hero-stat .label {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        /* Hero visual (right side) */
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 2rem;
-            width: 100%;
-            max-width: 480px;
-        }
-
-        .hero-card-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .hero-card-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-accent);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-card-icon svg {
-            width: 22px;
-            height: 22px;
-            color: white;
-        }
-
-        .hero-card-title {
-            color: var(--white);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .hero-card-subtitle {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8rem;
-        }
-
-        .transform-arrow {
-            text-align: center;
-            padding: 1rem 0;
-        }
-
-        .transform-arrow svg {
-            width: 36px;
-            height: 36px;
-            color: var(--accent);
-        }
-
-        .card-before, .card-after {
-            border-radius: 12px;
-            padding: 1.2rem;
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        .card-before {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.6);
-            font-family: 'Courier New', monospace;
-            font-size: 0.78rem;
-        }
-
-        .card-after {
-            background: rgba(0, 200, 150, 0.1);
-            border: 1px solid rgba(0, 200, 150, 0.2);
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .card-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .card-before .card-label {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .card-after .card-label {
-            color: var(--accent);
-        }
-
-        /* ─── Section base ─── */
-        section {
-            padding: 6rem 2rem;
-        }
-
-        .section-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-tag {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--dark);
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            font-size: 1.15rem;
-            color: var(--gray-500);
-            max-width: 640px;
-            margin: 0 auto;
-        }
-
-        /* ─── Problem Section ─── */
-        #problem {
-            background: var(--gray-100);
-        }
-
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .problem-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 2rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0,0,0,0.04);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .problem-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .problem-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.25rem;
-            font-size: 1.5rem;
-        }
-
-        .problem-card:nth-child(1) .problem-icon {
-            background: #FEE2E2;
-        }
-
-        .problem-card:nth-child(2) .problem-icon {
-            background: #FEF3C7;
-        }
-
-        .problem-card:nth-child(3) .problem-icon {
-            background: #DBEAFE;
-        }
-
-        .problem-card h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 0.75rem;
-        }
-
-        .problem-card p {
-            color: var(--gray-500);
-            font-size: 0.95rem;
-        }
-
-        .problem-stat {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.25rem;
-        }
-
-        /* ─── Solution Section ─── */
-        #solution {
-            background: var(--white);
-        }
-
-        .solution-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .solution-card {
-            background: var(--gray-100);
-            border-radius: var(--radius);
-            padding: 2rem;
-            border: 1px solid rgba(0,0,0,0.04);
-            transition: transform 0.2s;
-        }
-
-        .solution-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .solution-number {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: var(--gradient-accent);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .solution-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .solution-card p {
-            color: var(--gray-500);
-            font-size: 0.9rem;
-        }
-
-        /* ─── How It Works ─── */
-        #how-it-works {
-            background: var(--dark);
-            color: var(--white);
-        }
-
-        #how-it-works .section-tag {
-            color: var(--accent);
-        }
-
-        #how-it-works .section-header h2 {
-            color: var(--white);
-        }
-
-        #how-it-works .section-header p {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .pipeline-steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            position: relative;
-        }
-
-        .pipeline-step {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--radius);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            position: relative;
-        }
-
-        .pipeline-step-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
-            background: rgba(15, 111, 255, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.25rem;
-            font-size: 1.8rem;
-        }
-
-        .pipeline-step h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .pipeline-step p {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-            line-height: 1.5;
-        }
-
-        .step-number {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient-accent);
-            color: var(--white);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
-
-        /* ─── Safety Section ─── */
-        #safety {
-            background: var(--primary-light);
-        }
-
-        .safety-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .safety-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 2rem;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .safety-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .safety-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .safety-card p {
-            color: var(--gray-500);
-            font-size: 0.9rem;
-        }
-
-        /* ─── Team Section ─── */
-        #team {
-            background: var(--white);
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .team-card {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            border-radius: var(--radius);
-            background: var(--gray-100);
-            border: 1px solid rgba(0,0,0,0.04);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .team-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .team-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--gradient-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.8rem;
-            color: var(--white);
-            font-weight: 700;
-        }
-
-        .team-card h3 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 0.25rem;
-        }
-
-        .team-role {
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 500;
-            margin-bottom: 0.75rem;
-        }
-
-        .team-bio {
-            font-size: 0.85rem;
-            color: var(--gray-500);
-            line-height: 1.5;
-        }
-
-        .team-section-label {
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--gray-500);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 1.5rem;
-        }
-
-        .team-mentors {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .mentor-card {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.25rem;
-            border-radius: var(--radius);
-            background: var(--gray-100);
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-
-        .mentor-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--gray-300);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            color: var(--gray-700);
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .mentor-info h4 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .mentor-info p {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-        }
-
-        /* ─── Recognition Section ─── */
-        #recognition {
-            background: var(--gray-100);
-        }
-
-        .recognition-banner {
-            background: var(--gradient-hero);
-            border-radius: 20px;
-            padding: 3rem;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .recognition-banner .trophy {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .recognition-banner h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-        }
-
-        .recognition-banner p {
-            font-size: 1.05rem;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 700px;
-            margin: 0 auto 1.5rem;
-            line-height: 1.6;
-        }
-
-        .recognition-orgs {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .recognition-org {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 1.2rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        /* ─── CTA / Contact Section ─── */
-        #contact {
-            background: var(--white);
-            text-align: center;
-        }
-
-        .cta-box {
-            background: var(--gradient-accent);
-            border-radius: 20px;
-            padding: 4rem 3rem;
-            color: var(--white);
-        }
-
-        .cta-box h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-
-        .cta-box p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 2rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-white {
-            background: var(--white);
-            color: var(--primary);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--white);
-        }
-
-        /* ─── Footer ─── */
-        footer {
-            background: var(--dark);
-            color: rgba(255, 255, 255, 0.5);
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--white);
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-logo span {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        footer p {
-            font-size: 0.85rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .footer-event {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.8rem;
-        }
-
-        /* ─── Responsive ─── */
+        .nav-c { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; height: 72px; }
+        .nav-logo { font-size: 1.5rem; font-weight: 800; color: var(--dark); text-decoration: none; letter-spacing: -0.02em; }
+        .nav-logo span { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--gray-500); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-cta { background: var(--primary) !important; color: var(--white) !important; padding: 0.5rem 1.2rem; border-radius: 8px; }
+        .nav-cta:hover { background: var(--primary-dark) !important; }
+        .nav-ham { display: none; background: none; border: none; cursor: pointer; padding: .5rem; }
+        .nav-ham span { display: block; width: 24px; height: 2px; background: var(--dark); margin: 5px 0; }
+
+        /* ── Hero ── */
+        .hero { background: var(--gradient-hero); min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 72px; }
+        .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(15,111,255,0.15) 0%, transparent 70%); pointer-events: none; }
+        .hero-c { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+        .hero-badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(0,200,150,0.15); color: var(--accent); padding: .4rem 1rem; border-radius: 50px; font-size: .85rem; font-weight: 600; margin-bottom: 1.5rem; border: 1px solid rgba(0,200,150,0.3); }
+        .hero-badge svg { width: 16px; height: 16px; }
+        .hero h1 { font-size: 3.2rem; font-weight: 900; color: var(--white); line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+        .hero h1 .hl { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-sub { font-size: 1.15rem; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 2rem; max-width: 540px; }
+        .hero-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; }
+        .hero-stat .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .hero-stat .lbl { font-size: .78rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: .08em; line-height: 1.3; }
+
+        .hero-vis { display: flex; justify-content: center; align-items: center; }
+        .hero-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 2rem; width: 100%; max-width: 480px; }
+        .hc-head { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .hc-icon { width: 40px; height: 40px; background: var(--gradient-accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .hc-icon svg { width: 22px; height: 22px; color: white; }
+        .hc-title { color: var(--white); font-weight: 600; font-size: .95rem; }
+        .hc-sub { color: rgba(255,255,255,0.5); font-size: .8rem; }
+        .t-arrow { text-align: center; padding: 1rem 0; }
+        .t-arrow svg { width: 36px; height: 36px; color: var(--accent); }
+        .cb, .ca { border-radius: 12px; padding: 1.2rem; font-size: .85rem; line-height: 1.6; }
+        .cb { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); font-family: 'Courier New', monospace; font-size: .78rem; }
+        .ca { background: rgba(0,200,150,0.1); border: 1px solid rgba(0,200,150,0.2); color: rgba(255,255,255,0.85); }
+        .cl { font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; margin-bottom: .5rem; display: block; }
+        .cb .cl { color: rgba(255,255,255,0.4); }
+        .ca .cl { color: var(--accent); }
+
+        /* ── Sections ── */
+        section { padding: 6rem 2rem; }
+        .sc { max-width: 1200px; margin: 0 auto; }
+        .sh { text-align: center; margin-bottom: 4rem; }
+        .sh .tag { font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; color: var(--primary); font-weight: 600; margin-bottom: .75rem; }
+        .sh h2 { font-size: 2.4rem; font-weight: 800; color: var(--dark); letter-spacing: -0.02em; margin-bottom: 1rem; }
+        .sh p { font-size: 1.1rem; color: var(--gray-500); max-width: 680px; margin: 0 auto; line-height: 1.7; }
+
+        /* ── Evidence ── */
+        #evidence { background: var(--gray-50); }
+        .ev-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; margin-bottom: 3rem; }
+        .ev-card { background: var(--white); border-radius: var(--radius); padding: 2rem 1.5rem; text-align: center; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.04); transition: transform .2s, box-shadow .2s; }
+        .ev-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .ev-num { font-size: 2.8rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: .5rem; line-height: 1; }
+        .ev-num.blue { color: var(--primary); }
+        .ev-num.red { color: var(--danger); }
+        .ev-num.amber { color: var(--warning); }
+        .ev-num.green { color: var(--accent); }
+        .ev-card h3 { font-size: .95rem; font-weight: 700; color: var(--dark); margin-bottom: .5rem; }
+        .ev-card p { font-size: .82rem; color: var(--gray-500); line-height: 1.5; }
+        .ev-src { font-size: .72rem; color: var(--gray-400); margin-top: .75rem; font-style: italic; }
+        .ev-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+        .chart-box { background: var(--white); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.04); }
+        .chart-box h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: .5rem; }
+        .chart-box .cd { font-size: .82rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+        .ccw { position: relative; height: 280px; }
+
+        /* ── Problem ── */
+        #problem { background: var(--white); }
+        .prob-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+        .prob-card { background: var(--gray-50); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.04); transition: transform .2s, box-shadow .2s; }
+        .prob-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .prob-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; font-size: 1.5rem; }
+        .prob-card:nth-child(1) .prob-icon { background: #FEE2E2; }
+        .prob-card:nth-child(2) .prob-icon { background: #FEF3C7; }
+        .prob-card:nth-child(3) .prob-icon { background: #DBEAFE; }
+        .prob-stat { font-size: 2.5rem; font-weight: 800; color: var(--danger); margin-bottom: .25rem; }
+        .prob-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--dark); margin-bottom: .75rem; }
+        .prob-card p { color: var(--gray-500); font-size: .92rem; }
+
+        /* ── Solution ── */
+        #solution { background: var(--gray-50); }
+        .sol-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2rem; }
+        .sol-card { background: var(--white); border-radius: var(--radius); padding: 2rem; border: 1px solid rgba(0,0,0,0.04); box-shadow: var(--shadow-sm); transition: transform .2s, box-shadow .2s; }
+        .sol-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .sol-n { width: 36px; height: 36px; border-radius: 10px; background: var(--gradient-accent); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; margin-bottom: 1rem; }
+        .sol-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: .5rem; }
+        .sol-card p { color: var(--gray-500); font-size: .9rem; }
+
+        /* ── Pipeline ── */
+        #pipeline { background: var(--dark); color: var(--white); }
+        #pipeline .tag { color: var(--accent); }
+        #pipeline .sh h2 { color: var(--white); }
+        #pipeline .sh p { color: rgba(255,255,255,0.6); }
+        .pipe-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+        .pipe-step { text-align: center; padding: 2rem 1.5rem; background: rgba(255,255,255,0.05); border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.08); position: relative; }
+        .pipe-icon { width: 64px; height: 64px; border-radius: 16px; background: rgba(15,111,255,0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; font-size: 1.8rem; }
+        .pipe-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+        .pipe-step p { font-size: .85rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+        .sn { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient-accent); color: var(--white); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .8rem; }
+
+        /* ── Safety ── */
+        #safety { background: var(--primary-light); }
+        .safe-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+        .safe-card { background: var(--white); border-radius: var(--radius); padding: 2rem; text-align: center; box-shadow: var(--shadow-sm); }
+        .safe-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .safe-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: .5rem; }
+        .safe-card p { color: var(--gray-500); font-size: .9rem; }
+
+        /* ── Market ── */
+        #market { background: var(--white); }
+        .mkt-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+        .mkt-text h3 { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem; }
+        .mkt-text p { color: var(--gray-500); font-size: .95rem; margin-bottom: 1.5rem; line-height: 1.7; }
+        .mkt-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .mkt-m { background: var(--gray-50); border-radius: var(--radius); padding: 1.5rem; border: 1px solid rgba(0,0,0,0.04); }
+        .mkt-m .mv { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: .25rem; }
+        .mkt-m .ml { font-size: .82rem; color: var(--gray-500); line-height: 1.4; }
+        .mkt-chart { background: var(--gray-50); border-radius: var(--radius-lg); padding: 2rem; border: 1px solid rgba(0,0,0,0.04); }
+        .mkt-chart h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: .5rem; }
+        .mkt-chart .cd { font-size: .82rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+
+        /* ── Compliance ── */
+        #compliance { background: var(--gray-50); }
+        .comp-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+        .comp-card { background: var(--white); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-sm); border-left: 4px solid var(--primary); }
+        .comp-card.eu { border-left-color: #4F46E5; }
+        .comp-card.cl { border-left-color: var(--accent); }
+        .comp-card.dt { border-left-color: var(--warning); }
+        .comp-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: .75rem; }
+        .comp-card p { color: var(--gray-500); font-size: .88rem; line-height: 1.6; }
+        .comp-card ul { list-style: none; margin-top: .75rem; }
+        .comp-card ul li { font-size: .85rem; color: var(--gray-500); padding: .25rem 0 .25rem 1.25rem; position: relative; }
+        .comp-card ul li::before { content: '\2713'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+        /* ── Team ── */
+        #team { background: var(--white); }
+        .team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-bottom: 3rem; }
+        .team-card { text-align: center; padding: 2rem 1.5rem; border-radius: var(--radius); background: var(--gray-50); border: 1px solid rgba(0,0,0,0.04); transition: transform .2s, box-shadow .2s; }
+        .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .team-av { width: 80px; height: 80px; border-radius: 50%; background: var(--gradient-accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; color: var(--white); font-weight: 700; }
+        .team-card h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: .25rem; }
+        .team-role { font-size: .82rem; color: var(--primary); font-weight: 500; }
+        .team-label { text-align: center; font-size: .82rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.5rem; }
+        .mentors { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+        .mentor-card { display: flex; align-items: center; gap: 1rem; padding: 1.25rem; border-radius: var(--radius); background: var(--gray-50); border: 1px solid rgba(0,0,0,0.04); }
+        .mentor-av { width: 44px; height: 44px; border-radius: 50%; background: var(--gray-300); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--gray-700); font-weight: 700; flex-shrink: 0; }
+        .mentor-card h4 { font-size: .9rem; font-weight: 600; color: var(--dark); }
+        .mentor-card p { font-size: .78rem; color: var(--gray-500); }
+
+        /* ── Recognition ── */
+        #recognition { background: var(--gray-50); }
+        .rec-banner { background: var(--gradient-hero); border-radius: var(--radius-lg); padding: 3rem; text-align: center; color: var(--white); }
+        .rec-banner .trophy { font-size: 3.5rem; margin-bottom: 1rem; }
+        .rec-banner h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: .75rem; }
+        .rec-banner p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 700px; margin: 0 auto 1.5rem; line-height: 1.6; }
+        .rec-orgs { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+        .rec-org { background: rgba(255,255,255,0.1); padding: .5rem 1.2rem; border-radius: 50px; font-size: .82rem; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15); }
+
+        /* ── Roadmap ── */
+        #roadmap { background: var(--white); }
+        .rm-tl { max-width: 800px; margin: 0 auto; position: relative; padding-left: 3rem; }
+        .rm-tl::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: var(--gradient-accent); }
+        .rm-item { position: relative; margin-bottom: 2.5rem; padding-left: 2rem; }
+        .rm-item::before { content: ''; position: absolute; left: -2.35rem; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--primary); border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--primary); }
+        .rm-item.cur::before { background: var(--accent); box-shadow: 0 0 0 2px var(--accent), 0 0 12px rgba(0,200,150,0.4); }
+        .rm-item.fut::before { background: var(--gray-300); box-shadow: 0 0 0 2px var(--gray-300); }
+        .rm-phase { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--primary); margin-bottom: .25rem; }
+        .rm-item.cur .rm-phase { color: var(--accent); }
+        .rm-item.fut .rm-phase { color: var(--gray-400); }
+        .rm-item h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: .35rem; }
+        .rm-item p { font-size: .88rem; color: var(--gray-500); line-height: 1.6; }
+
+        /* ── References ── */
+        #refs { background: var(--gray-50); }
+        .ref-list { max-width: 900px; margin: 0 auto; list-style: none; counter-reset: ref; }
+        .ref-list li { counter-increment: ref; font-size: .82rem; color: var(--gray-500); line-height: 1.6; padding: .6rem 0 .6rem 2rem; position: relative; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        .ref-list li::before { content: '[' counter(ref) ']'; position: absolute; left: 0; font-weight: 600; color: var(--primary); font-size: .78rem; }
+        .ref-list li a { color: var(--primary); text-decoration: none; }
+        .ref-list li a:hover { text-decoration: underline; }
+
+        /* ── CTA ── */
+        #contact { background: var(--white); text-align: center; }
+        .cta-box { background: var(--gradient-accent); border-radius: var(--radius-lg); padding: 4rem 3rem; color: var(--white); }
+        .cta-box h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .cta-box p { font-size: 1.05rem; opacity: .9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 2rem; border-radius: 10px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-w { background: var(--white); color: var(--primary); box-shadow: var(--shadow-md); }
+        .btn-o { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.4); }
+        .btn-o:hover { border-color: var(--white); }
+
+        /* ── Footer ── */
+        footer { background: var(--dark); color: rgba(255,255,255,0.5); padding: 3rem 2rem; text-align: center; }
+        .footer-c { max-width: 1200px; margin: 0 auto; }
+        .footer-logo { font-size: 1.3rem; font-weight: 800; color: var(--white); margin-bottom: .75rem; }
+        .footer-logo span { background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        footer p { font-size: .85rem; margin-bottom: .25rem; }
+        .footer-ev { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: .8rem; }
+
+        /* ── Responsive ── */
         @media (max-width: 968px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                margin: 0 auto 2rem;
-            }
-
-            .hero-stats {
-                justify-content: center;
-            }
-
-            .hero-visual {
-                display: none;
-            }
-
-            .problem-grid,
-            .safety-grid,
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .solution-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pipeline-steps {
-                grid-template-columns: 1fr 1fr;
-            }
+            .hero-c { grid-template-columns: 1fr; text-align: center; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-sub { margin: 0 auto 2rem; }
+            .hero-stats { justify-content: center; }
+            .hero-vis { display: none; }
+            .ev-grid { grid-template-columns: repeat(2,1fr); }
+            .ev-charts { grid-template-columns: 1fr; }
+            .prob-grid, .safe-grid, .team-grid, .comp-grid { grid-template-columns: 1fr; }
+            .sol-grid { grid-template-columns: 1fr; }
+            .pipe-steps { grid-template-columns: 1fr 1fr; }
+            .mkt-layout { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 640px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            section {
-                padding: 4rem 1.5rem;
-            }
-
-            .pipeline-steps {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-stats {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: center;
-            }
-
-            .cta-box {
-                padding: 2.5rem 1.5rem;
-            }
-
-            .cta-box h2 {
-                font-size: 1.6rem;
-            }
+            .nav-links { display: none; }
+            .nav-ham { display: block; }
+            .nav-links.show { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--white); padding: 1rem 2rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.08); box-shadow: var(--shadow-md); }
+            .hero h1 { font-size: 2rem; }
+            section { padding: 4rem 1.5rem; }
+            .ev-grid { grid-template-columns: 1fr 1fr; }
+            .pipe-steps { grid-template-columns: 1fr; }
+            .hero-stats { flex-direction: column; gap: 1rem; align-items: center; }
+            .cta-box { padding: 2.5rem 1.5rem; }
+            .cta-box h2 { font-size: 1.6rem; }
+            .mkt-metrics { grid-template-columns: 1fr; }
         }
 
-        /* ─── Animations ─── */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* ── Animations ── */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-logo">ED<span>x</span>Plain</a>
-            <ul class="nav-links">
-                <li><a href="#problem">Problem</a></li>
-                <li><a href="#solution">Solution</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#safety">Safety</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="#contact" class="nav-cta">Contact Us</a></li>
-            </ul>
-        </div>
-    </nav>
+<!-- Nav -->
+<nav>
+    <div class="nav-c">
+        <a href="#" class="nav-logo">ED<span>x</span>Plain</a>
+        <ul class="nav-links">
+            <li><a href="#evidence">Evidence</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#pipeline">Pipeline</a></li>
+            <li><a href="#safety">Safety</a></li>
+            <li><a href="#market">Opportunity</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+        <button class="nav-ham" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <div>
-                <div class="hero-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    1st Place — GenAI Health Hack 2026
-                </div>
-                <h1>Making discharge notes <span class="highlight">understandable</span> for every patient</h1>
-                <p>EDxPlain uses AI to transform complex Emergency Department discharge notes into clear, safe, patient-friendly explanations — validated by clinicians, powered by AWS.</p>
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <div class="number">88%</div>
-                        <div class="label">Discharge notes are incomprehensible</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="number">~6th</div>
-                        <div class="label">Grade reading level target</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="number">&lt;$0.05</div>
-                        <div class="label">Cost per case</div>
-                    </div>
-                </div>
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-c">
+        <div>
+            <div class="hero-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                1st Place &#8212; GenAI Health Hack 2026
             </div>
-
-            <div class="hero-visual">
-                <div class="hero-card">
-                    <div class="hero-card-header">
-                        <div class="hero-card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                        </div>
-                        <div>
-                            <div class="hero-card-title">EDxPlain Pipeline</div>
-                            <div class="hero-card-subtitle">Real-time transformation</div>
-                        </div>
-                    </div>
-                    <div class="card-before">
-                        <span class="card-label">Technical discharge note</span>
-                        Dx: FA amb RVR. Cardioversió farmacològica amb amiodarona 300mg iv. Ritme sinusal recuperat. Alta amb acenocumarol segons pauta hematologia...
-                    </div>
-                    <div class="transform-arrow">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-                    </div>
-                    <div class="card-after">
-                        <span class="card-label">Patient-friendly explanation</span>
-                        Your heart had an irregular rhythm (atrial fibrillation). We gave you a medication through your vein to restore normal rhythm. Take your blood thinner as directed by the blood specialist...
-                    </div>
-                </div>
+            <h1>Discharge notes patients can actually <span class="hl">understand</span></h1>
+            <p class="hero-sub">EDxPlain uses AI to transform complex Emergency Department discharge notes into clear, clinically safe, patient-friendly explanations &#8212; reducing confusion, improving adherence, and saving clinician time.</p>
+            <div class="hero-stats">
+                <div class="hero-stat"><div class="num"><span class="counter" data-target="88">0</span>%</div><div class="lbl">Of discharge notes<br>incomprehensible</div></div>
+                <div class="hero-stat"><div class="num">2&#215;</div><div class="lbl">Higher harm risk<br>for LEP patients</div></div>
+                <div class="hero-stat"><div class="num">&lt;$0.05</div><div class="lbl">Cost per<br>patient case</div></div>
             </div>
         </div>
-    </section>
-
-    <!-- Problem Section -->
-    <section id="problem">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <div class="section-tag">The Problem</div>
-                <h2>Patients leave the ER confused</h2>
-                <p>Complex medical language creates a dangerous gap between what doctors write and what patients understand.</p>
-            </div>
-            <div class="problem-grid">
-                <div class="problem-card fade-in">
-                    <div class="problem-icon">📄</div>
-                    <div class="problem-stat">88%</div>
-                    <h3>Incomprehensible notes</h3>
-                    <p>Up to 88% of discharge instructions use medical jargon that the general population cannot understand, leaving patients confused and anxious.</p>
+        <div class="hero-vis">
+            <div class="hero-card">
+                <div class="hc-head">
+                    <div class="hc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                    <div><div class="hc-title">EDxPlain Pipeline</div><div class="hc-sub">Real-time transformation</div></div>
                 </div>
-                <div class="problem-card fade-in">
-                    <div class="problem-icon">🔄</div>
-                    <div class="problem-stat">↑</div>
-                    <h3>Avoidable readmissions</h3>
-                    <p>Poor understanding leads to lower treatment adherence, missed follow-ups, and preventable ER revisits that strain healthcare systems.</p>
-                </div>
-                <div class="problem-card fade-in">
-                    <div class="problem-icon">⏱️</div>
-                    <div class="problem-stat">0 min</div>
-                    <h3>No time to explain</h3>
-                    <p>Emergency physicians face extreme time pressure. There's no scalable way to personalize explanations for every patient at discharge.</p>
-                </div>
+                <div class="cb"><span class="cl">Technical discharge note</span>Dx: FA amb RVR. Cardioversi&#243; farmacol&#242;gica amb amiodarona 300mg iv. Ritme sinusal recuperat. Alta amb acenocumarol segons pauta hematologia...</div>
+                <div class="t-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></div>
+                <div class="ca"><span class="cl">Patient-friendly explanation</span>Your heart had an irregular rhythm (atrial fibrillation). We gave you a medication through your vein to restore normal rhythm. Take your blood thinner as directed by the blood specialist...</div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Solution Section -->
-    <section id="solution">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <div class="section-tag">Our Solution</div>
-                <h2>AI that speaks the patient's language</h2>
-                <p>EDxPlain automatically transforms technical discharge notes into structured, clinically validated, patient-friendly explanations.</p>
+<!-- Evidence -->
+<section id="evidence">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">The Evidence</div>
+            <h2>A crisis backed by data</h2>
+            <p>Health literacy is a stronger predictor of health than income, employment, or education level. The communication gap in emergency care has measurable, costly consequences.</p>
+        </div>
+        <div class="ev-grid">
+            <div class="ev-card fade-in">
+                <div class="ev-num red"><span class="counter" data-target="88">0</span>%</div>
+                <h3>Incomprehensible Notes</h3>
+                <p>Up to 88% of ED discharge instructions use language the general population cannot understand</p>
+                <div class="ev-src">Williams et al., AHRQ Health Literacy Guidelines</div>
             </div>
-            <div class="solution-grid">
-                <div class="solution-card fade-in">
-                    <div class="solution-number">1</div>
-                    <h3>Structured output</h3>
-                    <p>Seven clear sections: diagnosis, procedures, home care, medications, red flags, follow-up, and confidence indicators.</p>
-                </div>
-                <div class="solution-card fade-in">
-                    <div class="solution-number">2</div>
-                    <h3>Protocol-anchored (RAG)</h3>
-                    <p>Augmented with institutional clinical protocols (CERCA'M) via Retrieval-Augmented Generation, ensuring recommendations align with hospital guidelines.</p>
-                </div>
-                <div class="solution-card fade-in">
-                    <div class="solution-number">3</div>
-                    <h3>Bilingual support</h3>
-                    <p>Natively handles Catalan and Spanish discharge notes, adapting the output language and gender-aware phrasing.</p>
-                </div>
-                <div class="solution-card fade-in">
-                    <div class="solution-number">4</div>
-                    <h3>Readability validated</h3>
-                    <p>Every output is scored with the Fernández-Huerta readability index, targeting ≥ 60 (6th grade level) for true comprehension.</p>
-                </div>
+            <div class="ev-card fade-in">
+                <div class="ev-num amber">49%</div>
+                <h3>Physical Harm Risk</h3>
+                <p>Adverse events in LEP patients were ~2&#215; more likely to result in physical harm (49.1% vs 29.5%)</p>
+                <div class="ev-src">Divi et al., Int J Qual Health Care, 2007</div>
+            </div>
+            <div class="ev-card fade-in">
+                <div class="ev-num blue"><span class="counter" data-target="57">0</span>%</div>
+                <h3>Physicians Adopting AI</h3>
+                <p>57% of US physicians already using or planning to adopt AI translation tools within a year</p>
+                <div class="ev-src">AMA Physician AI Sentiment Report, 2024</div>
+            </div>
+            <div class="ev-card fade-in">
+                <div class="ev-num green">#1</div>
+                <h3>Health Predictor</h3>
+                <p>Health literacy is a stronger predictor of health status than income, employment, or education level</p>
+                <div class="ev-src">WHO Health Literacy Fact Sheet, 2025</div>
             </div>
         </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <div class="section-tag">Pipeline</div>
-                <h2>How It Works</h2>
-                <p>An end-to-end AWS-powered pipeline from clinical note to patient-ready document.</p>
+        <div class="ev-charts">
+            <div class="chart-box fade-in">
+                <h3>The Comprehension Gap</h3>
+                <p class="cd">Patient understanding of discharge instructions before and after AI simplification</p>
+                <div class="ccw"><canvas id="chartComp"></canvas></div>
             </div>
-            <div class="pipeline-steps">
-                <div class="pipeline-step fade-in">
-                    <div class="step-number">1</div>
-                    <div class="pipeline-step-icon">📥</div>
-                    <h3>Ingest</h3>
-                    <p>Discharge note is read from the clinical system (S3 or local provider).</p>
-                </div>
-                <div class="pipeline-step fade-in">
-                    <div class="step-number">2</div>
-                    <div class="pipeline-step-icon">🔍</div>
-                    <h3>Enrich</h3>
-                    <p>Pathology detection + CERCA'M template retrieval via RAG (Bedrock Knowledge Base).</p>
-                </div>
-                <div class="pipeline-step fade-in">
-                    <div class="step-number">3</div>
-                    <div class="pipeline-step-icon">🤖</div>
-                    <h3>Generate</h3>
-                    <p>Claude Sonnet on AWS Bedrock transforms the note with closed-context prompting (temp = 0).</p>
-                </div>
-                <div class="pipeline-step fade-in">
-                    <div class="step-number">4</div>
-                    <div class="pipeline-step-icon">✅</div>
-                    <h3>Validate</h3>
-                    <p>4-judge LLM evaluation + readability scoring. Clinician reviews and approves before delivery.</p>
-                </div>
+            <div class="chart-box fade-in">
+                <h3>Safety Validation Pipeline</h3>
+                <p class="cd">Multi-layer quality assurance: error prevention contribution by stage</p>
+                <div class="ccw"><canvas id="chartSafety"></canvas></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Safety Section -->
-    <section id="safety">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <div class="section-tag">Clinical Safety</div>
-                <h2>Defense in Depth</h2>
-                <p>Multiple layers of safeguards ensure clinical accuracy and patient safety at every step.</p>
+<!-- Problem -->
+<section id="problem">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">The Problem</div>
+            <h2>Patients leave the ER confused and at risk</h2>
+            <p>Complex medical language creates a dangerous gap between what doctors write and what patients understand &#8212; with real clinical and economic consequences.</p>
+        </div>
+        <div class="prob-grid">
+            <div class="prob-card fade-in">
+                <div class="prob-icon">&#128196;</div>
+                <div class="prob-stat">88%</div>
+                <h3>Incomprehensible notes</h3>
+                <p>Up to 88% of discharge instructions use technical jargon beyond the general population&#8217;s health literacy level, leaving patients unable to follow care plans.</p>
             </div>
-            <div class="safety-grid">
-                <div class="safety-card fade-in">
-                    <div class="safety-icon">🔒</div>
-                    <h3>Closed-Context AI</h3>
-                    <p>The LLM can only use information from the original discharge note. No external knowledge, no hallucination risk from web data. Temperature = 0 for deterministic output.</p>
-                </div>
-                <div class="safety-card fade-in">
-                    <div class="safety-icon">⚖️</div>
-                    <h3>4-Judge Evaluation</h3>
-                    <p>Four independent LLM judges verify coverage, fidelity, critical values, and completeness. A critical judge can block any output with dosage discrepancies.</p>
-                </div>
-                <div class="safety-card fade-in">
-                    <div class="safety-icon">👨‍⚕️</div>
-                    <h3>Human-in-the-Loop</h3>
-                    <p>Every generated explanation is a draft. The attending physician always reviews and approves before it reaches the patient. AI assists, never replaces.</p>
-                </div>
+            <div class="prob-card fade-in">
+                <div class="prob-icon">&#128260;</div>
+                <div class="prob-stat">&#8593;30%</div>
+                <h3>Higher readmissions</h3>
+                <p>Language discordance is associated with higher 30-day readmission rates. Poor comprehension drives avoidable ER revisits and increased healthcare spending.</p>
+            </div>
+            <div class="prob-card fade-in">
+                <div class="prob-icon">&#9201;</div>
+                <div class="prob-stat">1&#8211;5 days</div>
+                <h3>Translation delays</h3>
+                <p>Professional human translation of discharge documents can take 1&#8211;5 days, or be deferred entirely due to cost constraints, leaving patients without timely guidance.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Team Section -->
-    <section id="team">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <div class="section-tag">Team Bridge</div>
-                <h2>The Team Behind EDxPlain</h2>
-                <p>A multidisciplinary team of clinicians, engineers, data scientists, and legal experts working at the intersection of healthcare and AI.</p>
+<!-- Solution -->
+<section id="solution">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">Our Solution</div>
+            <h2>AI that speaks the patient&#8217;s language</h2>
+            <p>EDxPlain automatically transforms technical discharge notes into structured, clinically validated, patient-friendly explanations in real time.</p>
+        </div>
+        <div class="sol-grid">
+            <div class="sol-card fade-in"><div class="sol-n">1</div><h3>7-Section Structured Output</h3><p>Diagnosis, procedures, home care, medications, red flags, follow-up, and confidence indicators &#8212; each designed for actionable patient comprehension.</p></div>
+            <div class="sol-card fade-in"><div class="sol-n">2</div><h3>Protocol-Anchored (RAG)</h3><p>Augmented with institutional clinical protocols (CERCA&#8217;M) via Retrieval-Augmented Generation, ensuring recommendations align with hospital guidelines.</p></div>
+            <div class="sol-card fade-in"><div class="sol-n">3</div><h3>Bilingual &amp; Adaptive</h3><p>Natively handles Catalan and Spanish with gender-adaptive phrasing. Designed for linguistic scalability to other European languages.</p></div>
+            <div class="sol-card fade-in"><div class="sol-n">4</div><h3>Readability Validated</h3><p>Every output scored with Fern&#225;ndez-Huerta readability index (target &#8805; 60, ~6th grade). Quantified comprehension, not just translation.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Pipeline -->
+<section id="pipeline">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">Pipeline</div>
+            <h2>How It Works</h2>
+            <p>An end-to-end AWS Bedrock pipeline from clinical note to patient-ready document &#8212; fully auditable.</p>
+        </div>
+        <div class="pipe-steps">
+            <div class="pipe-step fade-in"><div class="sn">1</div><div class="pipe-icon">&#128229;</div><h3>Ingest</h3><p>Discharge note ingested from EHR / clinical system (S3 or API integration).</p></div>
+            <div class="pipe-step fade-in"><div class="sn">2</div><div class="pipe-icon">&#128269;</div><h3>Enrich</h3><p>Pathology detection + institutional protocols (CERCA&#8217;M) retrieval via Bedrock Knowledge Base RAG.</p></div>
+            <div class="pipe-step fade-in"><div class="sn">3</div><div class="pipe-icon">&#129302;</div><h3>Generate</h3><p>Claude Sonnet on AWS Bedrock transforms the note. Closed-context, temperature = 0, deterministic.</p></div>
+            <div class="pipe-step fade-in"><div class="sn">4</div><div class="pipe-icon">&#9989;</div><h3>Validate</h3><p>4-judge LLM evaluation + readability scoring + clinician approval before delivery.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Safety -->
+<section id="safety">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">Clinical Safety</div>
+            <h2>Defense in Depth</h2>
+            <p>Multiple safeguards ensure clinical accuracy and patient safety at every pipeline step.</p>
+        </div>
+        <div class="safe-grid">
+            <div class="safe-card fade-in"><div class="safe-icon">&#128274;</div><h3>Closed-Context AI</h3><p>The LLM uses only information from the original discharge note. No external knowledge, no hallucination from web data. Temperature = 0 for deterministic output.</p></div>
+            <div class="safe-card fade-in"><div class="safe-icon">&#9878;&#65039;</div><h3>4-Judge Evaluation</h3><p>Four independent LLM judges verify coverage, fidelity, critical values, and completeness. A critical judge blocks any dosage discrepancies.</p></div>
+            <div class="safe-card fade-in"><div class="safe-icon">&#128104;&#8205;&#9877;&#65039;</div><h3>Human-in-the-Loop</h3><p>Every explanation is a draft. The attending physician reviews and approves before patient delivery. AI assists &#8212; never replaces clinical judgment.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Market -->
+<section id="market">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">Market Opportunity</div>
+            <h2>The case for patient communication AI</h2>
+            <p>A growing market at the intersection of digital health, patient engagement, and AI &#8212; with clear demand from hospitals and health systems.</p>
+        </div>
+        <div class="mkt-layout fade-in">
+            <div class="mkt-text">
+                <h3>B2B SaaS for Hospitals &amp; Health Networks</h3>
+                <p>EDxPlain is a plug-and-play API that integrates into existing EHR systems via HL7/FHIR standards. When the physician signs off a discharge note, the patient-friendly version generates in the background &#8212; no new workflows, no new logins. Each execution produces a full audit trail for compliance teams.</p>
+                <p>The architecture adapts to any hospital by swapping the RAG Knowledge Base to local institutional protocols &#8212; turning generic AI into hospital-specific, guideline-anchored patient communication.</p>
+                <div class="mkt-metrics">
+                    <div class="mkt-m"><div class="mv">&lt;$0.05</div><div class="ml">Cost per patient case</div></div>
+                    <div class="mkt-m"><div class="mv">~3s</div><div class="ml">End-to-end processing</div></div>
+                    <div class="mkt-m"><div class="mv">HL7/FHIR</div><div class="ml">Standard EHR integration</div></div>
+                    <div class="mkt-m"><div class="mv">100% AWS</div><div class="ml">EU-compliant cloud infra</div></div>
+                </div>
             </div>
-
-            <div class="team-grid">
-                <div class="team-card fade-in">
-                    <div class="team-avatar">AF</div>
-                    <h3>Aina Fuentes Camacho</h3>
-                    <div class="team-role">Team member</div>
-                    <div class="team-bio"><!-- Bio coming soon --></div>
-                </div>
-                <div class="team-card fade-in">
-                    <div class="team-avatar">AG</div>
-                    <h3>Anastasia Ganshof</h3>
-                    <div class="team-role">Team member</div>
-                    <div class="team-bio"><!-- Bio coming soon --></div>
-                </div>
-                <div class="team-card fade-in">
-                    <div class="team-avatar">DC</div>
-                    <h3>David Cubero Valentín</h3>
-                    <div class="team-role">Data Scientist — Vall d'Hebron</div>
-                    <div class="team-bio"><!-- Bio coming soon --></div>
-                </div>
-                <div class="team-card fade-in">
-                    <div class="team-avatar">JP</div>
-                    <h3>Jaime Pineda</h3>
-                    <div class="team-role">Emergency Physician — HM Hospitales</div>
-                    <div class="team-bio"><!-- Bio coming soon --></div>
-                </div>
-                <div class="team-card fade-in">
-                    <div class="team-avatar">LR</div>
-                    <h3>Laia Raja Gubau</h3>
-                    <div class="team-role">Team member</div>
-                    <div class="team-bio"><!-- Bio coming soon --></div>
-                </div>
-                <div class="team-card fade-in">
-                    <div class="team-avatar">MI</div>
-                    <h3>Micaela Izbicki</h3>
-                    <div class="team-role">Lawyer — Cuatrecasas</div>
-                    <div class="team-bio"><!-- Bio coming soon --></div>
-                </div>
-            </div>
-
-            <div class="team-section-label fade-in">Mentor &amp; Clinical Promoters</div>
-            <div class="team-mentors">
-                <div class="mentor-card fade-in">
-                    <div class="mentor-avatar">MA</div>
-                    <div class="mentor-info">
-                        <h4>Miguel Ángel Armengol</h4>
-                        <p>Head of Data Science Lab, FPS / Junta de Andalucía — Mentor</p>
-                    </div>
-                </div>
-                <div class="mentor-card fade-in">
-                    <div class="mentor-avatar">BL</div>
-                    <div class="mentor-info">
-                        <h4>Beatriz López Barbeito</h4>
-                        <p>Clinical Promoter — Hospital Clínic Barcelona</p>
-                    </div>
-                </div>
-                <div class="mentor-card fade-in">
-                    <div class="mentor-avatar">AL</div>
-                    <div class="mentor-info">
-                        <h4>Alejandra Losada Parente</h4>
-                        <p>Clinical Promoter — Hospital Clínic Barcelona</p>
-                    </div>
-                </div>
-                <div class="mentor-card fade-in">
-                    <div class="mentor-avatar">LB</div>
-                    <div class="mentor-info">
-                        <h4>Ligia Bustamante Torneiro</h4>
-                        <p>Clinical Promoter — Hospital Clínic Barcelona</p>
-                    </div>
-                </div>
+            <div class="mkt-chart">
+                <h3>Digital Health Patient Engagement Market</h3>
+                <p class="cd">Projected global market growth ($B) &#8212; patient engagement &amp; education solutions</p>
+                <div class="ccw"><canvas id="chartMarket"></canvas></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Recognition Section -->
-    <section id="recognition">
-        <div class="section-container">
-            <div class="recognition-banner fade-in">
-                <div class="trophy">🏆</div>
-                <h3>1st Place — GenAI Health Hack 2026</h3>
-                <p>EDxPlain was awarded first place among 14 multidisciplinary teams and 90+ professionals at the GenAI Health Hack 2026, recognized as a <em>"technically robust AI solution with clear evidence of performance, ethical responsibility and impact."</em></p>
-                <div class="recognition-orgs">
-                    <span class="recognition-org">Hospital Clínic Barcelona</span>
-                    <span class="recognition-org">MIT Critical Data</span>
-                    <span class="recognition-org">Dept. Salut — Generalitat de Catalunya</span>
-                    <span class="recognition-org">NTT Data</span>
-                </div>
+<!-- Compliance -->
+<section id="compliance">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">Regulation &amp; Compliance</div>
+            <h2>Built for EU regulatory standards</h2>
+            <p>Designed from inception to meet the strictest European privacy and AI governance requirements.</p>
+        </div>
+        <div class="comp-grid">
+            <div class="comp-card eu fade-in">
+                <h3>&#127466;&#127482; EU AI Act Ready</h3>
+                <p>Healthcare AI with human-in-the-loop oversight, meeting transparency and risk management requirements.</p>
+                <ul><li>Human oversight before patient delivery</li><li>Full audit trail per execution</li><li>Bias monitoring via multi-language eval</li></ul>
+            </div>
+            <div class="comp-card dt fade-in">
+                <h3>&#128272; GDPR Compliant</h3>
+                <p>Patient data never leaves the controlled cloud perimeter. Zero data exfiltration architecture.</p>
+                <ul><li>AWS eu-west region deployment option</li><li>Pseudonymized identifiers only (NHC)</li><li>No PHI in logs, outputs, or training</li></ul>
+            </div>
+            <div class="comp-card cl fade-in">
+                <h3>&#127973; Clinical Governance</h3>
+                <p>Clinical decision support tool, not a medical device. Physician maintains full authority.</p>
+                <ul><li>Clinician-in-the-loop approval workflow</li><li>Closed-context: no invented medical facts</li><li>4-judge automated safety validation</li></ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Contact / CTA Section -->
-    <section id="contact">
-        <div class="section-container">
-            <div class="cta-box fade-in">
-                <h2>Let's transform patient communication together</h2>
-                <p>Interested in EDxPlain for your hospital, health network, or innovation hub? We'd love to connect.</p>
-                <div class="cta-buttons">
-                    <a href="mailto:edxplain@proton.me" class="btn btn-white">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        Contact Us
-                    </a>
-                    <a href="https://github.com/AIOjPINEDA" class="btn btn-outline" target="_blank" rel="noopener">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        GitHub
-                    </a>
-                </div>
+<!-- Team -->
+<section id="team">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">Team Bridge</div>
+            <h2>The Team Behind EDxPlain</h2>
+            <p>A multidisciplinary team bridging emergency medicine, data science, and healthcare law.</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card fade-in"><div class="team-av">AF</div><h3>Aina Fuentes Camacho</h3><div class="team-role">Team Member</div></div>
+            <div class="team-card fade-in"><div class="team-av">AG</div><h3>Anastasia Ganshof</h3><div class="team-role">Team Member</div></div>
+            <div class="team-card fade-in"><div class="team-av">DC</div><h3>David Cubero Valent&#237;n</h3><div class="team-role">Data Scientist &#8212; Vall d&#8217;Hebron</div></div>
+            <div class="team-card fade-in"><div class="team-av">JP</div><h3>Jaime Pineda</h3><div class="team-role">Emergency Physician &#8212; HM Hospitales</div></div>
+            <div class="team-card fade-in"><div class="team-av">LR</div><h3>Laia Raja Gubau</h3><div class="team-role">Team Member</div></div>
+            <div class="team-card fade-in"><div class="team-av">MI</div><h3>Micaela Izbicki</h3><div class="team-role">Lawyer &#8212; Cuatrecasas</div></div>
+        </div>
+        <div class="team-label fade-in">Mentor &amp; Clinical Promoters</div>
+        <div class="mentors">
+            <div class="mentor-card fade-in"><div class="mentor-av">MA</div><div><h4>Miguel &#193;ngel Armengol</h4><p>Head of Data Science Lab, FPS / Junta de Andaluc&#237;a &#8212; Mentor</p></div></div>
+            <div class="mentor-card fade-in"><div class="mentor-av">BL</div><div><h4>Beatriz L&#243;pez Barbeito</h4><p>Clinical Promoter &#8212; Hospital Cl&#237;nic Barcelona</p></div></div>
+            <div class="mentor-card fade-in"><div class="mentor-av">AL</div><div><h4>Alejandra Losada Parente</h4><p>Clinical Promoter &#8212; Hospital Cl&#237;nic Barcelona</p></div></div>
+            <div class="mentor-card fade-in"><div class="mentor-av">LB</div><div><h4>Ligia Bustamante Torneiro</h4><p>Clinical Promoter &#8212; Hospital Cl&#237;nic Barcelona</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Recognition -->
+<section id="recognition">
+    <div class="sc">
+        <div class="rec-banner fade-in">
+            <div class="trophy">&#127942;</div>
+            <h3>1st Place &#8212; GenAI Health Hack 2026</h3>
+            <p>Awarded first place among 14 multidisciplinary teams and 90+ professionals. Recognized as a <em>&#8220;technically robust AI solution with clear evidence of performance, ethical responsibility and impact.&#8221;</em></p>
+            <div class="rec-orgs">
+                <span class="rec-org">Hospital Cl&#237;nic Barcelona</span>
+                <span class="rec-org">MIT Critical Data</span>
+                <span class="rec-org">Dept. Salut &#8212; Generalitat de Catalunya</span>
+                <span class="rec-org">NTT Data</span>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">ED<span>x</span>Plain</div>
-            <p>Patient-friendly Emergency Discharge Explanations</p>
-            <div class="footer-event">
-                <p>Presented at <strong>4YFN 2026</strong> — MWC Barcelona, March 2–5, 2026</p>
-                <p>Catalonia Health Innovation Ecosystem (Biocat) Stand</p>
+<!-- Roadmap -->
+<section id="roadmap">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">Roadmap</div>
+            <h2>From prototype to clinical deployment</h2>
+            <p>A validated path from hackathon-winning prototype to real-world hospital integration.</p>
+        </div>
+        <div class="rm-tl fade-in">
+            <div class="rm-item">
+                <div class="rm-phase">Feb 2026 &#8212; Completed</div>
+                <h3>GenAI Health Hack &#8212; 1st Place</h3>
+                <p>Full pipeline prototype: ingestion, RAG enrichment, LLM generation, 4-judge evaluation, HTML rendering. Validated with real anonymized discharge notes.</p>
+            </div>
+            <div class="rm-item cur">
+                <div class="rm-phase">Mar 2026 &#8212; Current</div>
+                <h3>4YFN / MWC Barcelona</h3>
+                <p>Public presentation within Catalonia Health Innovation Ecosystem (Biocat). Partnership conversations with hospital networks and health tech companies.</p>
+            </div>
+            <div class="rm-item fut">
+                <div class="rm-phase">Q2-Q3 2026</div>
+                <h3>Controlled Clinical Pilots</h3>
+                <p>Deploy in selected ED departments. Measure patient comprehension, adherence, and clinician satisfaction with validated instruments.</p>
+            </div>
+            <div class="rm-item fut">
+                <div class="rm-phase">Q4 2026</div>
+                <h3>EHR Integration &amp; Linguistic Scaling</h3>
+                <p>SMART on FHIR / HL7 native integration. Expand to additional European languages and institutional protocol libraries.</p>
+            </div>
+            <div class="rm-item fut">
+                <div class="rm-phase">2027</div>
+                <h3>Regulatory Certification &amp; Scale</h3>
+                <p>Formal clinical decision support certification. Multi-hospital deployment across public and private networks.</p>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <!-- Scroll Animation Script -->
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
+<!-- References -->
+<section id="refs">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">Bibliography</div>
+            <h2>Evidence &amp; References</h2>
+        </div>
+        <ol class="ref-list fade-in">
+            <li>Divi C, Koss RG, Schmaltz SP. Language proficiency and adverse events in US hospitals: a pilot study. <em>Int J Qual Health Care.</em> 2007;19(2):60&#8211;67. <a href="https://doi.org/10.1093/intqhc/mzl069" target="_blank" rel="noopener">doi:10.1093/intqhc/mzl069</a></li>
+            <li>Chu JN, Wong J, Bardach NS, et al. Association between language discordance and unplanned readmissions. <em>BMJ Qual Saf.</em> 2024;33:456&#8211;469. <a href="https://doi.org/10.1136/bmjqs-2023-016295" target="_blank" rel="noopener">doi:10.1136/bmjqs-2023-016295</a></li>
+            <li>American Medical Association. 2024 Physician AI Sentiment Report. Chicago: AMA; 2025.</li>
+            <li>WHO. Health Literacy Fact Sheet. Geneva: World Health Organization; 2025. <a href="https://www.who.int/news-room/fact-sheets/detail/health-literacy" target="_blank" rel="noopener">who.int/health-literacy</a></li>
+            <li>Anyaegbuna C, Steele N, Liang AS, et al. AI translation in healthcare: an urgent call for evidence-informed policy frameworks. <em>BMJ Health Care Inform.</em> 2026;33(1):e102007. <a href="https://doi.org/10.1136/bmjhci-2025-102007" target="_blank" rel="noopener">doi:10.1136/bmjhci-2025-102007</a></li>
+            <li>Alowais SA, Alghamdi SS, et al. Revolutionizing healthcare: the role of AI in clinical practice. <em>BMC Med Educ.</em> 2023;23:689. <a href="https://doi.org/10.1186/s12909-023-04698-z" target="_blank" rel="noopener">doi:10.1186/s12909-023-04698-z</a></li>
+            <li>Kirchner GJ, Kim RY, et al. Can AI improve the readability of Patient Education Materials? <em>Clin Orthop Relat Res.</em> 2023. <a href="https://doi.org/10.1097/CORR.0000000000002668" target="_blank" rel="noopener">doi:10.1097/CORR.0000000000002668</a></li>
+            <li>Ray M, Kats DJ, et al. Evaluating a Large Language Model in Translating Patient Instructions to Spanish. <em>JAMA Pediatr.</em> 2025;179:1026&#8211;1033. <a href="https://doi.org/10.1001/jamapediatrics.2025.1729" target="_blank" rel="noopener">doi:10.1001/jamapediatrics.2025.1729</a></li>
+            <li>Lopez I, Velasquez DE, et al. Operationalising LLM-based machine-assisted translation in health systems. <em>NPJ Digit Med.</em> 2025;8:584. <a href="https://doi.org/10.1038/s41746-025-01944-0" target="_blank" rel="noopener">doi:10.1038/s41746-025-01944-0</a></li>
+            <li>Grand View Research. Patient Engagement Solutions Market Size Report, 2024&#8211;2030. <a href="https://www.grandviewresearch.com/industry-analysis/patient-engagement-solutions-market" target="_blank" rel="noopener">grandviewresearch.com</a></li>
+        </ol>
+    </div>
+</section>
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    </script>
+<!-- Contact -->
+<section id="contact">
+    <div class="sc">
+        <div class="cta-box fade-in">
+            <h2>Let&#8217;s transform patient communication together</h2>
+            <p>Interested in EDxPlain for your hospital, health network, or innovation hub? We&#8217;d love to connect at 4YFN or any time.</p>
+            <div class="cta-btns">
+                <a href="mailto:edxplain@proton.me" class="btn btn-w">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Contact Us
+                </a>
+                <a href="https://github.com/AIOjPINEDA" class="btn btn-o" target="_blank" rel="noopener">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-c">
+        <div class="footer-logo">ED<span>x</span>Plain</div>
+        <p>AI-Powered Patient-Friendly Discharge Explanations</p>
+        <div class="footer-ev">
+            <p>Presented at <strong>4YFN 2026</strong> &#8212; MWC Barcelona, March 2&#8211;5, 2026</p>
+            <p>Catalonia Health Innovation Ecosystem (Biocat) Stand</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Scroll animation
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// Counter animation
+const cObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const c = e.target, t = +c.dataset.target, d = 1500, s = performance.now();
+        function u(n) {
+            const p = Math.min((n - s) / d, 1);
+            c.textContent = Math.round(t * (1 - Math.pow(1 - p, 3)));
+            if (p < 1) requestAnimationFrame(u);
+        }
+        requestAnimationFrame(u);
+        cObs.unobserve(c);
+    });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
+
+// Chart defaults
+const cDef = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            labels: { font: { family: 'Inter', size: 12, weight: '500' }, padding: 16, usePointStyle: true }
+        }
+    }
+};
+
+// Comprehension chart
+new Chart(document.getElementById('chartComp'), {
+    type: 'bar',
+    data: {
+        labels: ['Diagnosis', 'Medications', 'Home Care', 'Red Flags', 'Follow-up'],
+        datasets: [
+            { label: 'Standard Discharge Note', data: [22, 15, 18, 12, 25], backgroundColor: 'rgba(239,68,68,0.7)', borderColor: 'rgba(239,68,68,1)', borderWidth: 1, borderRadius: 6 },
+            { label: 'EDxPlain Output', data: [85, 90, 88, 82, 92], backgroundColor: 'rgba(0,200,150,0.7)', borderColor: 'rgba(0,200,150,1)', borderWidth: 1, borderRadius: 6 }
+        ]
+    },
+    options: {
+        ...cDef,
+        scales: {
+            y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%', font: { family: 'Inter', size: 11 } }, grid: { color: 'rgba(0,0,0,0.04)' } },
+            x: { ticks: { font: { family: 'Inter', size: 11 } }, grid: { display: false } }
+        },
+        plugins: { ...cDef.plugins, tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '% comprehension' } } }
+    }
+});
+
+// Safety chart
+new Chart(document.getElementById('chartSafety'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Closed-Context (prevents)', 'Coverage Judge', 'Fidelity Judge', 'Critical Values Judge', 'Clinician Review'],
+        datasets: [{ data: [40, 15, 15, 20, 10], backgroundColor: ['rgba(15,111,255,0.8)', 'rgba(0,200,150,0.8)', 'rgba(79,70,229,0.8)', 'rgba(245,158,11,0.8)', 'rgba(239,68,68,0.8)'], borderWidth: 2, borderColor: '#fff' }]
+    },
+    options: {
+        ...cDef,
+        cutout: '55%',
+        plugins: { ...cDef.plugins, tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + '% of error prevention' } } }
+    }
+});
+
+// Market chart
+new Chart(document.getElementById('chartMarket'), {
+    type: 'line',
+    data: {
+        labels: ['2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+        datasets: [{
+            label: 'Patient Engagement Solutions ($B)',
+            data: [19.4, 23.1, 27.5, 32.7, 38.9, 46.3, 55.1, 65.5, 77.9],
+            borderColor: 'rgba(15,111,255,1)',
+            backgroundColor: 'rgba(15,111,255,0.1)',
+            fill: true, tension: 0.4, borderWidth: 2.5,
+            pointRadius: 4, pointBackgroundColor: '#fff',
+            pointBorderColor: 'rgba(15,111,255,1)', pointBorderWidth: 2
+        }]
+    },
+    options: {
+        ...cDef,
+        scales: {
+            y: { beginAtZero: false, ticks: { callback: v => '$' + v + 'B', font: { family: 'Inter', size: 11 } }, grid: { color: 'rgba(0,0,0,0.04)' } },
+            x: { ticks: { font: { family: 'Inter', size: 11 } }, grid: { display: false } }
+        }
+    }
+});
+</script>
 
 </body>
 </html>
