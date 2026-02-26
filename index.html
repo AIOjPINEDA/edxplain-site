@@ -30,10 +30,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Chart.js (deferred — not render-blocking) -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
-
-    <!-- App script (deferred — runs after DOM + Chart.js) -->
+    <!-- App script (deferred) -->
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -43,13 +40,11 @@
     <div class="nav-c">
         <a href="#" class="nav-logo">ED<span>x</span>Plain</a>
         <ul class="nav-links">
-            <li><a href="#evidence">Evidence</a></li>
             <li><a href="#solution">Solution</a></li>
-            <li><a href="#pipeline">Pipeline</a></li>
             <li><a href="#safety">Safety</a></li>
-            <li><a href="#market">Opportunity</a></li>
             <li><a href="#team">Team</a></li>
-            <li><a href="#contact" class="nav-cta">Contact</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#4yfn" class="nav-cta">4YFN</a></li>
         </ul>
         <button class="nav-ham" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -64,11 +59,10 @@
                 1st Place &#8212; GenAI Health Hack 2026
             </div>
             <h1>Discharge notes patients can actually <span class="hl">understand</span></h1>
-            <p class="hero-sub">EDxPlain uses AI to transform complex Emergency Department discharge notes into clear, clinically safe, patient-friendly explanations &#8212; reducing confusion, improving adherence, and saving clinician time.</p>
-            <div class="hero-stats">
-                <div class="hero-stat"><div class="num"><span class="counter" data-target="88">0</span>%</div><div class="lbl">Of discharge notes<br>incomprehensible</div></div>
-                <div class="hero-stat"><div class="num">2&#215;</div><div class="lbl">Higher harm risk<br>for LEP patients</div></div>
-                <div class="hero-stat"><div class="num">&lt;$0.05</div><div class="lbl">Cost per<br>patient case</div></div>
+            <p class="hero-sub">EDxPlain transforms complex Emergency Department discharge notes into clear, clinically safe, patient-friendly explanations &#8212; in seconds.</p>
+            <div class="hero-ctas">
+                <a href="#solution" class="btn btn-p">See how it works</a>
+                <a href="#4yfn" class="btn btn-g">Meet us at 4YFN &#8594;</a>
             </div>
         </div>
         <div class="hero-vis">
@@ -85,81 +79,49 @@
     </div>
 </section>
 
-<!-- Evidence -->
-<section id="evidence">
+<!-- Recognition -->
+<section id="recognition">
     <div class="sc">
-        <div class="sh fade-in">
-            <div class="tag">The Evidence</div>
-            <h2>A crisis backed by data</h2>
-            <p>Health literacy is a stronger predictor of health than income, employment, or education level. The communication gap in emergency care has measurable, costly consequences.</p>
-        </div>
-        <div class="ev-grid">
-            <div class="ev-card fade-in">
-                <div class="ev-num red"><span class="counter" data-target="88">0</span>%</div>
-                <h3>Incomprehensible Notes</h3>
-                <p>Up to 88% of ED discharge instructions use language the general population cannot understand</p>
-                <div class="ev-src">Williams et al., AHRQ Health Literacy Guidelines</div>
-            </div>
-            <div class="ev-card fade-in">
-                <div class="ev-num amber">49%</div>
-                <h3>Physical Harm Risk</h3>
-                <p>Adverse events in LEP patients were ~2&#215; more likely to result in physical harm (49.1% vs 29.5%)</p>
-                <div class="ev-src">Divi et al., Int J Qual Health Care, 2007</div>
-            </div>
-            <div class="ev-card fade-in">
-                <div class="ev-num blue"><span class="counter" data-target="57">0</span>%</div>
-                <h3>Physicians Adopting AI</h3>
-                <p>57% of US physicians already using or planning to adopt AI translation tools within a year</p>
-                <div class="ev-src">AMA Physician AI Sentiment Report, 2024</div>
-            </div>
-            <div class="ev-card fade-in">
-                <div class="ev-num green">#1</div>
-                <h3>Health Predictor</h3>
-                <p>Health literacy is a stronger predictor of health status than income, employment, or education level</p>
-                <div class="ev-src">WHO Health Literacy Fact Sheet, 2025</div>
-            </div>
-        </div>
-        <div class="ev-charts">
-            <div class="chart-box fade-in">
-                <h3>The Comprehension Gap</h3>
-                <p class="cd">Patient understanding of discharge instructions before and after AI simplification</p>
-                <div class="ccw"><canvas id="chartComp"></canvas></div>
-            </div>
-            <div class="chart-box fade-in">
-                <h3>Safety Validation Pipeline</h3>
-                <p class="cd">Multi-layer quality assurance: error prevention contribution by stage</p>
-                <div class="ccw"><canvas id="chartSafety"></canvas></div>
+        <div class="rec-banner fade-in">
+            <div class="trophy">&#127942;</div>
+            <h3>1st Place &#8212; GenAI Health Hack 2026</h3>
+            <p>Awarded first place among 14 multidisciplinary teams and 90+ professionals at Hospital Cl&#237;nic Barcelona. Recognized as a <em>&#8220;technically robust AI solution with clear evidence of performance, ethical responsibility and impact.&#8221;</em></p>
+            <div class="rec-orgs">
+                <span class="rec-org">Hospital Cl&#237;nic Barcelona</span>
+                <span class="rec-org">MIT Critical Data</span>
+                <span class="rec-org">Dept. Salut &#8212; Generalitat de Catalunya</span>
+                <span class="rec-org">NTT Data</span>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Problem -->
+<!-- Why It Matters -->
 <section id="problem">
     <div class="sc">
         <div class="sh fade-in">
-            <div class="tag">The Problem</div>
+            <div class="tag">Why It Matters</div>
             <h2>Patients leave the ER confused and at risk</h2>
-            <p>Complex medical language creates a dangerous gap between what doctors write and what patients understand &#8212; with real clinical and economic consequences.</p>
+            <p>Health literacy is a stronger predictor of health than income, employment, or education level.</p>
         </div>
         <div class="prob-grid">
             <div class="prob-card fade-in">
                 <div class="prob-icon">&#128196;</div>
                 <div class="prob-stat">88%</div>
                 <h3>Incomprehensible notes</h3>
-                <p>Up to 88% of discharge instructions use technical jargon beyond the general population&#8217;s health literacy level, leaving patients unable to follow care plans.</p>
+                <p>Discharge instructions use language beyond most patients&#8217; health literacy level.</p>
             </div>
             <div class="prob-card fade-in">
                 <div class="prob-icon">&#128260;</div>
-                <div class="prob-stat">&#8593;30%</div>
-                <h3>Higher readmissions</h3>
-                <p>Language discordance is associated with higher 30-day readmission rates. Poor comprehension drives avoidable ER revisits and increased healthcare spending.</p>
+                <div class="prob-stat">2&#215;</div>
+                <h3>Higher harm for LEP patients</h3>
+                <p>Adverse events in limited-proficiency patients are ~2&#215; more likely to cause physical harm.</p>
             </div>
             <div class="prob-card fade-in">
                 <div class="prob-icon">&#9201;</div>
-                <div class="prob-stat">1&#8211;5 days</div>
-                <h3>Translation delays</h3>
-                <p>Professional human translation of discharge documents can take 1&#8211;5 days, or be deferred entirely due to cost constraints, leaving patients without timely guidance.</p>
+                <div class="prob-stat">&#8593;30%</div>
+                <h3>More readmissions</h3>
+                <p>Language discordance drives higher 30-day readmission rates and avoidable ER revisits.</p>
             </div>
         </div>
     </div>
@@ -191,7 +153,7 @@
             <p>An end-to-end AWS Bedrock pipeline from clinical note to patient-ready document &#8212; fully auditable.</p>
         </div>
         <div class="pipe-steps">
-            <div class="pipe-step fade-in"><div class="sn">1</div><div class="pipe-icon">&#128229;</div><h3>Ingest</h3><p>Discharge note ingested from EHR / clinical system (S3 or API integration).</p></div>
+            <div class="pipe-step fade-in"><div class="sn">1</div><div class="pipe-icon">&#128229;</div><h3>Ingest</h3><p>Discharge note from clinical system or direct file upload.</p></div>
             <div class="pipe-step fade-in"><div class="sn">2</div><div class="pipe-icon">&#128269;</div><h3>Enrich</h3><p>Pathology detection + institutional protocols (CERCA&#8217;M) retrieval via Bedrock Knowledge Base RAG.</p></div>
             <div class="pipe-step fade-in"><div class="sn">3</div><div class="pipe-icon">&#129302;</div><h3>Generate</h3><p>Claude Sonnet on AWS Bedrock transforms the note. Closed-context, temperature = 0, deterministic.</p></div>
             <div class="pipe-step fade-in"><div class="sn">4</div><div class="pipe-icon">&#9989;</div><h3>Validate</h3><p>4-judge LLM evaluation + readability scoring + clinician approval before delivery.</p></div>
@@ -199,75 +161,19 @@
     </div>
 </section>
 
-<!-- Safety -->
+<!-- Safety & Compliance -->
 <section id="safety">
     <div class="sc">
         <div class="sh fade-in">
-            <div class="tag">Clinical Safety</div>
-            <h2>Defense in Depth</h2>
-            <p>Multiple safeguards ensure clinical accuracy and patient safety at every pipeline step.</p>
+            <div class="tag">Safety &amp; Compliance</div>
+            <h2>Defense in depth</h2>
+            <p>Multiple safeguards ensure clinical accuracy, patient safety, and regulatory alignment at every step.</p>
         </div>
         <div class="safe-grid">
-            <div class="safe-card fade-in"><div class="safe-icon">&#128274;</div><h3>Closed-Context AI</h3><p>The LLM uses only information from the original discharge note. No external knowledge, no hallucination from web data. Temperature = 0 for deterministic output.</p></div>
+            <div class="safe-card fade-in"><div class="safe-icon">&#128274;</div><h3>Closed-Context Generation</h3><p>The model uses only information from the original discharge note. No external knowledge, no hallucination from web data. Temperature = 0.</p></div>
             <div class="safe-card fade-in"><div class="safe-icon">&#9878;&#65039;</div><h3>4-Judge Evaluation</h3><p>Four independent LLM judges verify coverage, fidelity, critical values, and completeness. A critical judge blocks any dosage discrepancies.</p></div>
-            <div class="safe-card fade-in"><div class="safe-icon">&#128104;&#8205;&#9877;&#65039;</div><h3>Human-in-the-Loop</h3><p>Every explanation is a draft. The attending physician reviews and approves before patient delivery. AI assists &#8212; never replaces clinical judgment.</p></div>
-        </div>
-    </div>
-</section>
-
-<!-- Market -->
-<section id="market">
-    <div class="sc">
-        <div class="sh fade-in">
-            <div class="tag">Market Opportunity</div>
-            <h2>The case for patient communication AI</h2>
-            <p>A growing market at the intersection of digital health, patient engagement, and AI &#8212; with clear demand from hospitals and health systems.</p>
-        </div>
-        <div class="mkt-layout fade-in">
-            <div class="mkt-text">
-                <h3>B2B SaaS for Hospitals &amp; Health Networks</h3>
-                <p>EDxPlain is a plug-and-play API that integrates into existing EHR systems via HL7/FHIR standards. When the physician signs off a discharge note, the patient-friendly version generates in the background &#8212; no new workflows, no new logins. Each execution produces a full audit trail for compliance teams.</p>
-                <p>The architecture adapts to any hospital by swapping the RAG Knowledge Base to local institutional protocols &#8212; turning generic AI into hospital-specific, guideline-anchored patient communication.</p>
-                <div class="mkt-metrics">
-                    <div class="mkt-m"><div class="mv">&lt;$0.05</div><div class="ml">Cost per patient case</div></div>
-                    <div class="mkt-m"><div class="mv">~3s</div><div class="ml">End-to-end processing</div></div>
-                    <div class="mkt-m"><div class="mv">HL7/FHIR</div><div class="ml">Standard EHR integration</div></div>
-                    <div class="mkt-m"><div class="mv">100% AWS</div><div class="ml">EU-compliant cloud infra</div></div>
-                </div>
-            </div>
-            <div class="mkt-chart">
-                <h3>Digital Health Patient Engagement Market</h3>
-                <p class="cd">Projected global market growth ($B) &#8212; patient engagement &amp; education solutions</p>
-                <div class="ccw"><canvas id="chartMarket"></canvas></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Compliance -->
-<section id="compliance">
-    <div class="sc">
-        <div class="sh fade-in">
-            <div class="tag">Regulation &amp; Compliance</div>
-            <h2>Built for EU regulatory standards</h2>
-            <p>Designed from inception to meet the strictest European privacy and AI governance requirements.</p>
-        </div>
-        <div class="comp-grid">
-            <div class="comp-card eu fade-in">
-                <h3>&#127466;&#127482; EU AI Act Ready</h3>
-                <p>Healthcare AI with human-in-the-loop oversight, meeting transparency and risk management requirements.</p>
-                <ul><li>Human oversight before patient delivery</li><li>Full audit trail per execution</li><li>Bias monitoring via multi-language eval</li></ul>
-            </div>
-            <div class="comp-card dt fade-in">
-                <h3>&#128272; GDPR Compliant</h3>
-                <p>Patient data never leaves the controlled cloud perimeter. Zero data exfiltration architecture.</p>
-                <ul><li>AWS eu-west region deployment option</li><li>Pseudonymized identifiers only (NHC)</li><li>No PHI in logs, outputs, or training</li></ul>
-            </div>
-            <div class="comp-card cl fade-in">
-                <h3>&#127973; Clinical Governance</h3>
-                <p>Clinical decision support tool, not a medical device. Physician maintains full authority.</p>
-                <ul><li>Clinician-in-the-loop approval workflow</li><li>Closed-context: no invented medical facts</li><li>4-judge automated safety validation</li></ul>
-            </div>
+            <div class="safe-card fade-in"><div class="safe-icon">&#128104;&#8205;&#9877;&#65039;</div><h3>Clinician-in-the-Loop</h3><p>Every output is a draft. The attending physician reviews and approves before patient delivery. AI assists &#8212; never replaces clinical judgment.</p></div>
+            <div class="safe-card fade-in"><div class="safe-icon">&#127466;&#127482;</div><h3>EU AI Act &amp; GDPR Ready</h3><p>Human oversight, full audit trail, pseudonymized identifiers only (NHC). Designed for EU regulatory requirements from day one.</p></div>
         </div>
     </div>
 </section>
@@ -368,30 +274,13 @@
     </div>
 </section>
 
-<!-- Recognition -->
-<section id="recognition">
-    <div class="sc">
-        <div class="rec-banner fade-in">
-            <div class="trophy">&#127942;</div>
-            <h3>1st Place &#8212; GenAI Health Hack 2026</h3>
-            <p>Awarded first place among 14 multidisciplinary teams and 90+ professionals. Recognized as a <em>&#8220;technically robust AI solution with clear evidence of performance, ethical responsibility and impact.&#8221;</em></p>
-            <div class="rec-orgs">
-                <span class="rec-org">Hospital Cl&#237;nic Barcelona</span>
-                <span class="rec-org">MIT Critical Data</span>
-                <span class="rec-org">Dept. Salut &#8212; Generalitat de Catalunya</span>
-                <span class="rec-org">NTT Data</span>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Roadmap -->
 <section id="roadmap">
     <div class="sc">
         <div class="sh fade-in">
             <div class="tag">Roadmap</div>
-            <h2>From prototype to clinical deployment</h2>
-            <p>A validated path from hackathon-winning prototype to real-world hospital integration.</p>
+            <h2>From hackathon winner to clinical validation</h2>
+            <p>A clear path from winning prototype to real-world impact.</p>
         </div>
         <div class="rm-tl fade-in">
             <div class="rm-item">
@@ -402,22 +291,70 @@
             <div class="rm-item cur">
                 <div class="rm-phase">Mar 2026 &#8212; Current</div>
                 <h3>4YFN / MWC Barcelona</h3>
-                <p>Public presentation within Catalonia Health Innovation Ecosystem (Biocat). Partnership conversations with hospital networks and health tech companies.</p>
+                <p>Public presentation at Fundaci&#243; TIC Salut i Social stand. Seeking clinical feedback and pilot partnerships.</p>
             </div>
             <div class="rm-item fut">
                 <div class="rm-phase">Q2-Q3 2026</div>
                 <h3>Controlled Clinical Pilots</h3>
-                <p>Deploy in selected ED departments. Measure patient comprehension, adherence, and clinician satisfaction with validated instruments.</p>
+                <p>Deploy in 1&#8211;2 selected ED departments. Measure patient comprehension and clinician satisfaction with validated instruments.</p>
             </div>
             <div class="rm-item fut">
                 <div class="rm-phase">Q4 2026</div>
                 <h3>EHR Integration &amp; Linguistic Scaling</h3>
-                <p>SMART on FHIR / HL7 native integration. Expand to additional European languages and institutional protocol libraries.</p>
+                <p>SMART on FHIR / HL7 integration planned. Expand to additional European languages and institutional protocol libraries.</p>
             </div>
             <div class="rm-item fut">
                 <div class="rm-phase">2027</div>
                 <h3>Regulatory Certification &amp; Scale</h3>
                 <p>Formal clinical decision support certification. Multi-hospital deployment across public and private networks.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What We're Looking For -->
+<section id="4yfn">
+    <div class="sc">
+        <div class="sh fade-in">
+            <div class="tag">4YFN 2026</div>
+            <h2>What we&#8217;re looking for</h2>
+            <p>We&#8217;re presenting EDxPlain at the Fundaci&#243; TIC Salut i Social stand during 4YFN / MWC Barcelona.</p>
+        </div>
+        <div class="prob-grid">
+            <div class="prob-card fade-in">
+                <div class="prob-icon">&#127919;</div>
+                <h3>Live demo</h3>
+                <p>See a real discharge note transformed into a patient-friendly explanation &#8212; in seconds.</p>
+            </div>
+            <div class="prob-card fade-in">
+                <div class="prob-icon">&#128172;</div>
+                <h3>Clinical &amp; innovation feedback</h3>
+                <p>Input from clinicians, health system innovators, and patient advocacy groups.</p>
+            </div>
+            <div class="prob-card fade-in">
+                <div class="prob-icon">&#128300;</div>
+                <h3>Pilot partnerships</h3>
+                <p>Exploring controlled pilots in 1&#8211;2 Emergency Departments to validate real-world impact.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+    <div class="sc">
+        <div class="cta-box fade-in">
+            <h2>Let&#8217;s talk at 4YFN</h2>
+            <p>Find us at the Fundaci&#243; TIC Salut i Social stand &#8212; or reach out anytime.</p>
+            <div class="cta-btns">
+                <a href="mailto:edxplain@proton.me" class="btn btn-w">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    edxplain@proton.me
+                </a>
+                <a href="https://github.com/AIOjPINEDA" class="btn btn-o" target="_blank" rel="noopener">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
             </div>
         </div>
     </div>
@@ -431,37 +368,15 @@
             <h2>Evidence &amp; References</h2>
         </div>
         <ol class="ref-list fade-in">
-            <li>Divi C, Koss RG, Schmaltz SP. Language proficiency and adverse events in US hospitals: a pilot study. <em>Int J Qual Health Care.</em> 2007;19(2):60&#8211;67. <a href="https://doi.org/10.1093/intqhc/mzl069" target="_blank" rel="noopener">doi:10.1093/intqhc/mzl069</a></li>
-            <li>Chu JN, Wong J, Bardach NS, et al. Association between language discordance and unplanned readmissions. <em>BMJ Qual Saf.</em> 2024;33:456&#8211;469. <a href="https://doi.org/10.1136/bmjqs-2023-016295" target="_blank" rel="noopener">doi:10.1136/bmjqs-2023-016295</a></li>
-            <li>American Medical Association. 2024 Physician AI Sentiment Report. Chicago: AMA; 2025.</li>
-            <li>WHO. Health Literacy Fact Sheet. Geneva: World Health Organization; 2025. <a href="https://www.who.int/news-room/fact-sheets/detail/health-literacy" target="_blank" rel="noopener">who.int/health-literacy</a></li>
-            <li>Anyaegbuna C, Steele N, Liang AS, et al. AI translation in healthcare: an urgent call for evidence-informed policy frameworks. <em>BMJ Health Care Inform.</em> 2026;33(1):e102007. <a href="https://doi.org/10.1136/bmjhci-2025-102007" target="_blank" rel="noopener">doi:10.1136/bmjhci-2025-102007</a></li>
-            <li>Alowais SA, Alghamdi SS, et al. Revolutionizing healthcare: the role of AI in clinical practice. <em>BMC Med Educ.</em> 2023;23:689. <a href="https://doi.org/10.1186/s12909-023-04698-z" target="_blank" rel="noopener">doi:10.1186/s12909-023-04698-z</a></li>
-            <li>Kirchner GJ, Kim RY, et al. Can AI improve the readability of Patient Education Materials? <em>Clin Orthop Relat Res.</em> 2023. <a href="https://doi.org/10.1097/CORR.0000000000002668" target="_blank" rel="noopener">doi:10.1097/CORR.0000000000002668</a></li>
-            <li>Ray M, Kats DJ, et al. Evaluating a Large Language Model in Translating Patient Instructions to Spanish. <em>JAMA Pediatr.</em> 2025;179:1026&#8211;1033. <a href="https://doi.org/10.1001/jamapediatrics.2025.1729" target="_blank" rel="noopener">doi:10.1001/jamapediatrics.2025.1729</a></li>
-            <li>Lopez I, Velasquez DE, et al. Operationalising LLM-based machine-assisted translation in health systems. <em>NPJ Digit Med.</em> 2025;8:584. <a href="https://doi.org/10.1038/s41746-025-01944-0" target="_blank" rel="noopener">doi:10.1038/s41746-025-01944-0</a></li>
-            <li>Grand View Research. Patient Engagement Solutions Market Size Report, 2024&#8211;2030. <a href="https://www.grandviewresearch.com/industry-analysis/patient-engagement-solutions-market" target="_blank" rel="noopener">grandviewresearch.com</a></li>
+            <li>Divi C, Koss RG, Schmaltz SP. Language proficiency and adverse events in US hospitals. <em>Int J Qual Health Care.</em> 2007;19(2):60&#8211;67. <a href="https://doi.org/10.1093/intqhc/mzl069" target="_blank" rel="noopener">doi:10.1093/intqhc/mzl069</a></li>
+            <li>Chu JN, Wong J, et al. Language discordance and unplanned readmissions. <em>BMJ Qual Saf.</em> 2024;33:456&#8211;469. <a href="https://doi.org/10.1136/bmjqs-2023-016295" target="_blank" rel="noopener">doi:10.1136/bmjqs-2023-016295</a></li>
+            <li>AMA. 2024 Physician AI Sentiment Report. Chicago: AMA; 2025.</li>
+            <li>WHO. Health Literacy Fact Sheet. Geneva: WHO; 2025. <a href="https://www.who.int/news-room/fact-sheets/detail/health-literacy" target="_blank" rel="noopener">who.int/health-literacy</a></li>
+            <li>Anyaegbuna C, et al. AI translation in healthcare: policy frameworks. <em>BMJ Health Care Inform.</em> 2026;33(1):e102007. <a href="https://doi.org/10.1136/bmjhci-2025-102007" target="_blank" rel="noopener">doi:10.1136/bmjhci-2025-102007</a></li>
+            <li>Kirchner GJ, et al. AI readability of Patient Education Materials. <em>Clin Orthop Relat Res.</em> 2023. <a href="https://doi.org/10.1097/CORR.0000000000002668" target="_blank" rel="noopener">doi:10.1097/CORR.0000000000002668</a></li>
+            <li>Ray M, et al. LLM Translation of Patient Instructions to Spanish. <em>JAMA Pediatr.</em> 2025;179:1026&#8211;1033. <a href="https://doi.org/10.1001/jamapediatrics.2025.1729" target="_blank" rel="noopener">doi:10.1001/jamapediatrics.2025.1729</a></li>
+            <li>Lopez I, et al. LLM-based translation in health systems. <em>NPJ Digit Med.</em> 2025;8:584. <a href="https://doi.org/10.1038/s41746-025-01944-0" target="_blank" rel="noopener">doi:10.1038/s41746-025-01944-0</a></li>
         </ol>
-    </div>
-</section>
-
-<!-- Contact -->
-<section id="contact">
-    <div class="sc">
-        <div class="cta-box fade-in">
-            <h2>Let&#8217;s transform patient communication together</h2>
-            <p>Interested in EDxPlain for your hospital, health network, or innovation hub? We&#8217;d love to connect at 4YFN or any time.</p>
-            <div class="cta-btns">
-                <a href="mailto:edxplain@proton.me" class="btn btn-w">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                    Contact Us
-                </a>
-                <a href="https://github.com/AIOjPINEDA" class="btn btn-o" target="_blank" rel="noopener">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -471,8 +386,8 @@
         <div class="footer-logo">ED<span>x</span>Plain</div>
         <p>AI-Powered Patient-Friendly Discharge Explanations</p>
         <div class="footer-ev">
-            <p>Presented at <strong>4YFN 2026</strong> &#8212; MWC Barcelona, March 2&#8211;5, 2026</p>
-            <p>Catalonia Health Innovation Ecosystem (Biocat) Stand</p>
+            <p>Presented at <strong>4YFN 2026</strong> &#8212; MWC Barcelona, March 3&#8211;5, 2026</p>
+            <p>Fundaci&#243; TIC Salut i Social Stand</p>
         </div>
     </div>
 </footer>
