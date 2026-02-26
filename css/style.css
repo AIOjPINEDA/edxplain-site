@@ -405,6 +405,43 @@ section {
 }
 
 /* ── Evidence ── */
+/* ── Clinical Boundaries ── */
+.boundaries {
+    padding: 0 2rem;
+    margin-top: -2rem;
+}
+
+.boundary-banner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 2rem;
+    border-radius: var(--radius);
+    background: #FFF8E1;
+    border: 1px solid #FFE082;
+    border-left: 4px solid var(--warning);
+}
+
+.boundary-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    color: var(--warning);
+}
+
+.boundary-banner p {
+    font-size: 0.9rem;
+    color: var(--gray-700);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.boundary-banner strong {
+    color: var(--dark);
+}
+
 /* ── Problem / Why It Matters ── */
 #problem {
     background: var(--white);
@@ -446,10 +483,11 @@ section {
 .prob-card:nth-child(3) .prob-icon { background: #DBEAFE; }
 
 .prob-stat {
-    font-size: 2.5rem;
+    font-size: 1.6rem;
     font-weight: 800;
     color: var(--danger);
     margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
 }
 
 .prob-card h3 {
@@ -462,6 +500,25 @@ section {
 .prob-card p {
     color: var(--gray-500);
     font-size: 0.92rem;
+}
+
+.prob-cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.78rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.prob-cite a {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.prob-cite a:hover {
+    border-bottom-color: var(--primary);
 }
 
 /* ── Solution ── */
@@ -596,7 +653,7 @@ section {
 
 .safe-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
@@ -1008,6 +1065,60 @@ section {
     text-decoration: underline;
 }
 
+.ref-list-extra {
+    display: none;
+}
+
+.ref-list-extra.show {
+    display: block;
+}
+
+.ref-toggle {
+    display: block;
+    margin: 1.5rem auto 0;
+    padding: 0.6rem 1.5rem;
+    background: var(--white);
+    color: var(--primary);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.ref-toggle:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+}
+
+/* ── Event Detail ── */
+.event-detail {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    padding: 1.5rem 2rem;
+    background: var(--primary-light);
+    border-radius: var(--radius);
+    border: 1px solid rgba(15, 111, 255, 0.12);
+}
+
+.event-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--dark);
+    font-weight: 500;
+}
+
+.event-label {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
 /* ── CTA / Contact ── */
 #contact {
     background: var(--white);
@@ -1208,6 +1319,20 @@ footer p {
 
     section {
         padding: 4rem 1.5rem;
+    }
+
+    .prob-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .safe-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .event-detail {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
     }
 
     .pipe-steps {

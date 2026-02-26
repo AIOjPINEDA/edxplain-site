@@ -69,11 +69,28 @@
         });
     }
 
+    /* ── References toggle (show more / show less) ── */
+    function initRefToggle() {
+        const toggle = document.querySelector('.ref-toggle');
+        const extra = document.querySelector('.ref-list-extra');
+
+        if (!toggle || !extra) return;
+
+        toggle.addEventListener('click', () => {
+            const expanded = extra.classList.toggle('show');
+            toggle.setAttribute('aria-expanded', expanded);
+            toggle.textContent = expanded
+                ? 'Show fewer references \u25B2'
+                : 'Show 4 more references \u25BC';
+        });
+    }
+
     /* ── Init all ── */
     function init() {
         initScrollAnimations();
         initCounters();
         initMobileNav();
+        initRefToggle();
     }
 
     // Run when DOM is ready

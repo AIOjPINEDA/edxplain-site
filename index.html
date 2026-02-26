@@ -96,32 +96,45 @@
     </div>
 </section>
 
+<!-- Clinical Boundaries -->
+<section class="boundaries">
+    <div class="sc">
+        <div class="boundary-banner fade-in">
+            <svg class="boundary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M3.27 20.13l7.59-13.12a1.38 1.38 0 0 1 2.28 0l7.59 13.12A1.38 1.38 0 0 1 19.52 22H4.48a1.38 1.38 0 0 1-1.21-1.87z"/></svg>
+            <p><strong>EDxPlain does not diagnose or change treatment.</strong> It converts the discharge note into a patient guide, anchored to institutional protocols, and requires clinician approval before delivery. Not a consumer chatbot &#8212; a governed clinical communication layer.</p>
+        </div>
+    </div>
+</section>
+
 <!-- Why It Matters -->
 <section id="problem">
     <div class="sc">
         <div class="sh fade-in">
             <div class="tag">Why It Matters</div>
             <h2>Patients leave the ER confused and at risk</h2>
-            <p>Health literacy is a stronger predictor of health than income, employment, or education level.</p>
+            <p>Health literacy is a stronger predictor of health than income, employment, or education level <a href="https://www.who.int/news-room/fact-sheets/detail/health-literacy" target="_blank" rel="noopener">(WHO 2025)</a>. The evidence is clear:</p>
         </div>
         <div class="prob-grid">
             <div class="prob-card fade-in">
                 <div class="prob-icon">&#128196;</div>
-                <div class="prob-stat">88%</div>
-                <h3>Incomprehensible notes</h3>
-                <p>Discharge instructions use language beyond most patients&#8217; health literacy level.</p>
+                <div class="prob-stat">&#8593; Comprehension</div>
+                <h3>Plain language works</h3>
+                <p>GPT-4 plain-language translation of clinical documents significantly improves patient comprehension in a 553-participant study.</p>
+                <cite class="prob-cite"><a href="https://ai.nejm.org/doi/abs/10.1056/AIoa2400402" target="_blank" rel="noopener">NEJM AI 2025</a></cite>
             </div>
             <div class="prob-card fade-in">
                 <div class="prob-icon">&#128260;</div>
-                <div class="prob-stat">2&#215;</div>
-                <h3>Higher harm for LEP patients</h3>
-                <p>Adverse events in limited-proficiency patients are ~2&#215; more likely to cause physical harm.</p>
+                <div class="prob-stat">2&#215; harm</div>
+                <h3>Language discordance is a safety issue</h3>
+                <p>Adverse events in limited-proficiency patients are ~2&#215; more likely to cause physical harm. Language discordance is associated with higher readmissions and ED revisits.</p>
+                <cite class="prob-cite"><a href="https://doi.org/10.1136/bmjqs-2023-016295" target="_blank" rel="noopener">BMJ Qual Saf 2024</a></cite>
             </div>
             <div class="prob-card fade-in">
-                <div class="prob-icon">&#9201;</div>
-                <div class="prob-stat">&#8593;30%</div>
-                <h3>More readmissions</h3>
-                <p>Language discordance drives higher 30-day readmission rates and avoidable ER revisits.</p>
+                <div class="prob-icon">&#9878;&#65039;</div>
+                <div class="prob-stat">&#8800; Perfect</div>
+                <h3>LLM quality needs safeguards</h3>
+                <p>LLM-generated discharge summaries achieve comparable quality, but errors exist &#8212; human review remains essential for clinical safety.</p>
+                <cite class="prob-cite"><a href="https://jamanetwork.com/journals/jamainternalmedicine/article-abstract/2833228" target="_blank" rel="noopener">JAMA Internal Medicine 2025</a></cite>
             </div>
         </div>
     </div>
@@ -173,7 +186,9 @@
             <div class="safe-card fade-in"><div class="safe-icon">&#128274;</div><h3>Closed-Context Generation</h3><p>The model uses only information from the original discharge note. No external knowledge, no hallucination from web data. Temperature = 0.</p></div>
             <div class="safe-card fade-in"><div class="safe-icon">&#9878;&#65039;</div><h3>4-Judge Evaluation</h3><p>Four independent LLM judges verify coverage, fidelity, critical values, and completeness. A critical judge blocks any dosage discrepancies.</p></div>
             <div class="safe-card fade-in"><div class="safe-icon">&#128104;&#8205;&#9877;&#65039;</div><h3>Clinician-in-the-Loop</h3><p>Every output is a draft. The attending physician reviews and approves before patient delivery. AI assists &#8212; never replaces clinical judgment.</p></div>
-            <div class="safe-card fade-in"><div class="safe-icon">&#127466;&#127482;</div><h3>EU AI Act &amp; GDPR Ready</h3><p>Human oversight, full audit trail, pseudonymized identifiers only (NHC). Designed for EU regulatory requirements from day one.</p></div>
+            <div class="safe-card fade-in"><div class="safe-icon">&#128683;</div><h3>Failure Modes &amp; Auto-Block</h3><p>Critical mismatches in dosage, timing, red flags, or anticoagulation changes automatically block output delivery. Explicit stop rules, not silent failures.</p></div>
+            <div class="safe-card fade-in"><div class="safe-icon">&#128451;</div><h3>Data Governance</h3><p>Pseudonymized identifiers only (NHC). Full audit trail with structured logs. Retention policy enforced. No model training on hospital data.</p></div>
+            <div class="safe-card fade-in"><div class="safe-icon">&#127466;&#127482;</div><h3>EU AI Act &amp; GDPR Ready</h3><p>Human oversight, transparency obligations, and bias monitoring. Designed for EU regulatory requirements from day one.</p></div>
         </div>
     </div>
 </section>
@@ -304,7 +319,12 @@
         <div class="sh fade-in">
             <div class="tag">4YFN 2026</div>
             <h2>What we&#8217;re looking for</h2>
-            <p>We&#8217;re presenting EDxPlain at the Fundaci&#243; TIC Salut i Social stand during 4YFN / MWC Barcelona.</p>
+            <p>We&#8217;re presenting EDxPlain as part of the <strong>Catalonia Health Innovation Ecosystem</strong> at 4YFN / MWC Barcelona.</p>
+        </div>
+        <div class="event-detail fade-in">
+            <div class="event-detail-item"><span class="event-label">&#128205; Where</span><span>Hall 8.0 &#8212; Stand 8.0B10</span></div>
+            <div class="event-detail-item"><span class="event-label">&#128336; When</span><span>13:15 &#8212; GenAI Health Hack winning projects session</span></div>
+            <div class="event-detail-item"><span class="event-label">&#127963;&#65039; Organized by</span><span>Fundaci&#243; TIC Salut i Social</span></div>
         </div>
         <div class="prob-grid">
             <div class="prob-card fade-in">
@@ -331,7 +351,7 @@
     <div class="sc">
         <div class="cta-box fade-in">
             <h2>Let&#8217;s talk at 4YFN</h2>
-            <p>Find us at the Fundaci&#243; TIC Salut i Social stand &#8212; or reach out anytime.</p>
+            <p>Hall 8.0, Stand 8.0B10 &#8212; Session at 13:15 &#8212; or reach out anytime.</p>
             <div class="cta-btns">
                 <a href="mailto:edxplain@proton.me" class="btn btn-w">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -353,16 +373,21 @@
             <div class="tag">Bibliography</div>
             <h2>Evidence &amp; References</h2>
         </div>
-        <ol class="ref-list fade-in">
-            <li>Divi C, Koss RG, Schmaltz SP. Language proficiency and adverse events in US hospitals. <em>Int J Qual Health Care.</em> 2007;19(2):60&#8211;67. <a href="https://doi.org/10.1093/intqhc/mzl069" target="_blank" rel="noopener">doi:10.1093/intqhc/mzl069</a></li>
+        <ol class="ref-list ref-list-core fade-in">
+            <li>Zack T, et al. GPT-4 plain-language translation improves patient comprehension of clinical documents. <em>NEJM AI.</em> 2025. <a href="https://ai.nejm.org/doi/abs/10.1056/AIoa2400402" target="_blank" rel="noopener">doi:10.1056/AIoa2400402</a></li>
+            <li>Patel SB, et al. Physician- and LLM-generated discharge summaries: quality comparison. <em>JAMA Intern Med.</em> 2025. <a href="https://jamanetwork.com/journals/jamainternalmedicine/article-abstract/2833228" target="_blank" rel="noopener">doi:10.1001/jamainternmed.2024.8268</a></li>
             <li>Chu JN, Wong J, et al. Language discordance and unplanned readmissions. <em>BMJ Qual Saf.</em> 2024;33:456&#8211;469. <a href="https://doi.org/10.1136/bmjqs-2023-016295" target="_blank" rel="noopener">doi:10.1136/bmjqs-2023-016295</a></li>
-            <li>AMA. 2024 Physician AI Sentiment Report. Chicago: AMA; 2025.</li>
             <li>WHO. Health Literacy Fact Sheet. Geneva: WHO; 2025. <a href="https://www.who.int/news-room/fact-sheets/detail/health-literacy" target="_blank" rel="noopener">who.int/health-literacy</a></li>
             <li>Anyaegbuna C, et al. AI translation in healthcare: policy frameworks. <em>BMJ Health Care Inform.</em> 2026;33(1):e102007. <a href="https://doi.org/10.1136/bmjhci-2025-102007" target="_blank" rel="noopener">doi:10.1136/bmjhci-2025-102007</a></li>
-            <li>Kirchner GJ, et al. AI readability of Patient Education Materials. <em>Clin Orthop Relat Res.</em> 2023. <a href="https://doi.org/10.1097/CORR.0000000000002668" target="_blank" rel="noopener">doi:10.1097/CORR.0000000000002668</a></li>
-            <li>Ray M, et al. LLM Translation of Patient Instructions to Spanish. <em>JAMA Pediatr.</em> 2025;179:1026&#8211;1033. <a href="https://doi.org/10.1001/jamapediatrics.2025.1729" target="_blank" rel="noopener">doi:10.1001/jamapediatrics.2025.1729</a></li>
             <li>Lopez I, et al. LLM-based translation in health systems. <em>NPJ Digit Med.</em> 2025;8:584. <a href="https://doi.org/10.1038/s41746-025-01944-0" target="_blank" rel="noopener">doi:10.1038/s41746-025-01944-0</a></li>
         </ol>
+        <ol class="ref-list ref-list-extra fade-in" start="7">
+            <li>Divi C, Koss RG, Schmaltz SP. Language proficiency and adverse events in US hospitals. <em>Int J Qual Health Care.</em> 2007;19(2):60&#8211;67. <a href="https://doi.org/10.1093/intqhc/mzl069" target="_blank" rel="noopener">doi:10.1093/intqhc/mzl069</a></li>
+            <li>AMA. 2024 Physician AI Sentiment Report. Chicago: AMA; 2025.</li>
+            <li>Kirchner GJ, et al. AI readability of Patient Education Materials. <em>Clin Orthop Relat Res.</em> 2023. <a href="https://doi.org/10.1097/CORR.0000000000002668" target="_blank" rel="noopener">doi:10.1097/CORR.0000000000002668</a></li>
+            <li>Ray M, et al. LLM Translation of Patient Instructions to Spanish. <em>JAMA Pediatr.</em> 2025;179:1026&#8211;1033. <a href="https://doi.org/10.1001/jamapediatrics.2025.1729" target="_blank" rel="noopener">doi:10.1001/jamapediatrics.2025.1729</a></li>
+        </ol>
+        <button class="ref-toggle fade-in" aria-expanded="false">Show 4 more references &#9660;</button>
     </div>
 </section>
 
@@ -373,7 +398,7 @@
         <p>AI-Powered Patient-Friendly Discharge Explanations</p>
         <div class="footer-ev">
             <p>Presented at <strong>4YFN 2026</strong> &#8212; MWC Barcelona, March 3&#8211;5, 2026</p>
-            <p>Fundaci&#243; TIC Salut i Social Stand</p>
+            <p>Hall 8.0, Stand 8.0B10 &#8212; Fundaci&#243; TIC Salut i Social &#8212; Session at 13:15</p>
         </div>
     </div>
 </footer>
