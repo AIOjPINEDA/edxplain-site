@@ -831,9 +831,8 @@ section {
 }
 
 .team-card {
-    position: relative;
     text-align: center;
-    padding: 2rem 1.5rem 1.5rem;
+    padding: 1.5rem 1.25rem;
     border-radius: var(--radius);
     background: var(--gray-50);
     border: 1px solid rgba(0, 0, 0, 0.04);
@@ -841,76 +840,62 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.35rem;
 }
 
 .team-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
 }
 
 .team-av {
-    width: 72px;
-    height: 72px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background: var(--gradient-accent);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 0.75rem;
-    font-size: 1.35rem;
+    margin: 0 auto 0.25rem;
+    font-size: 1.1rem;
     color: var(--white);
     font-weight: 700;
     flex-shrink: 0;
 }
 
 .team-card h3 {
-    font-size: 1rem;
+    font-size: 0.92rem;
     font-weight: 700;
     color: var(--dark);
-    margin-bottom: 0.2rem;
+    margin-bottom: 0;
 }
 
 .team-role {
     display: inline-block;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 600;
-    color: var(--white);
-    background: var(--primary);
-    padding: 0.15rem 0.6rem;
+    color: var(--gray-500);
+    background: rgba(0, 0, 0, 0.04);
+    padding: 0.15rem 0.55rem;
     border-radius: 50px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.4rem;
-}
-
-.team-role.lead {
-    background: var(--gradient-accent);
+    letter-spacing: 0.02em;
 }
 
 .team-org {
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     color: var(--gray-500);
     font-weight: 500;
-    margin-bottom: 0.6rem;
     line-height: 1.3;
-}
-
-.team-bio {
-    font-size: 0.8rem;
-    color: var(--gray-500);
-    line-height: 1.5;
-    flex-grow: 1;
-    margin-bottom: 0.75rem;
 }
 
 .team-ln {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    background: rgba(0, 119, 181, 0.08);
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: rgba(0, 119, 181, 0.06);
     color: #0077B5;
     transition: background 0.2s, transform 0.2s;
     margin-top: auto;
@@ -919,12 +904,12 @@ section {
 .team-ln:hover {
     background: #0077B5;
     color: var(--white);
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 .team-ln svg {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     fill: currentColor;
 }
 
@@ -943,19 +928,19 @@ section {
 .mentor-featured {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    padding: 2rem;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
     border-radius: var(--radius-lg);
     background: var(--gray-50);
     border: 1px solid rgba(0, 0, 0, 0.06);
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto 3rem;
 }
 
 .mentor-featured .team-av {
-    width: 80px;
-    height: 80px;
-    font-size: 1.5rem;
+    width: 56px;
+    height: 56px;
+    font-size: 1.1rem;
     background: var(--gradient-hero);
     margin: 0;
     flex-shrink: 0;
@@ -964,31 +949,20 @@ section {
 .mentor-featured-info {
     flex: 1;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 .mentor-featured-info h3 {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--dark);
-    margin-bottom: 0.15rem;
-}
-
-.mentor-featured-info .team-role {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
 }
 
 .mentor-featured-info .team-org {
-    margin-bottom: 0.4rem;
-}
-
-.mentor-featured-info .team-bio {
-    margin-bottom: 0.75rem;
-}
-
-.mentor-featured-links {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
+    margin-bottom: 0;
 }
 
 /* ── Team: Clinical promoters grid ── */
@@ -1047,14 +1021,14 @@ section {
 }
 
 .mentor-card .team-ln {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     flex-shrink: 0;
 }
 
 .mentor-card .team-ln svg {
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
 }
 
 /* ── Recognition ── */
@@ -1390,15 +1364,12 @@ footer p {
     .mentor-featured {
         flex-direction: column;
         text-align: center;
-        gap: 1.25rem;
+        gap: 1rem;
     }
 
     .mentor-featured-info {
         text-align: center;
-    }
-
-    .mentor-featured-links {
-        justify-content: center;
+        align-items: center;
     }
 
     .sol-grid {
