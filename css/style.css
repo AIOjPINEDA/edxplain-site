@@ -831,12 +831,16 @@ section {
 }
 
 .team-card {
+    position: relative;
     text-align: center;
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.5rem 1.5rem;
     border-radius: var(--radius);
     background: var(--gray-50);
     border: 1px solid rgba(0, 0, 0, 0.04);
     transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .team-card:hover {
@@ -845,32 +849,86 @@ section {
 }
 
 .team-av {
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     background: var(--gradient-accent);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1rem;
-    font-size: 1.5rem;
+    margin: 0 auto 0.75rem;
+    font-size: 1.35rem;
     color: var(--white);
     font-weight: 700;
+    flex-shrink: 0;
 }
 
 .team-card h3 {
     font-size: 1rem;
     font-weight: 700;
     color: var(--dark);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.2rem;
 }
 
 .team-role {
-    font-size: 0.82rem;
-    color: var(--primary);
-    font-weight: 500;
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--primary);
+    padding: 0.15rem 0.6rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
 }
 
+.team-role.lead {
+    background: var(--gradient-accent);
+}
+
+.team-org {
+    font-size: 0.78rem;
+    color: var(--gray-500);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+}
+
+.team-bio {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    line-height: 1.5;
+    flex-grow: 1;
+    margin-bottom: 0.75rem;
+}
+
+.team-ln {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(0, 119, 181, 0.08);
+    color: #0077B5;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: auto;
+}
+
+.team-ln:hover {
+    background: #0077B5;
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+.team-ln svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+/* ── Team: Divider labels ── */
 .team-label {
     text-align: center;
     font-size: 0.82rem;
@@ -881,11 +939,64 @@ section {
     margin-bottom: 1.5rem;
 }
 
+/* ── Team: Mentor card (featured) ── */
+.mentor-featured {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    background: var(--gray-50);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    max-width: 800px;
+    margin: 0 auto 3rem;
+}
+
+.mentor-featured .team-av {
+    width: 80px;
+    height: 80px;
+    font-size: 1.5rem;
+    background: var(--gradient-hero);
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.mentor-featured-info {
+    flex: 1;
+    text-align: left;
+}
+
+.mentor-featured-info h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.15rem;
+}
+
+.mentor-featured-info .team-role {
+    margin-bottom: 0.5rem;
+}
+
+.mentor-featured-info .team-org {
+    margin-bottom: 0.4rem;
+}
+
+.mentor-featured-info .team-bio {
+    margin-bottom: 0.75rem;
+}
+
+.mentor-featured-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* ── Team: Clinical promoters grid ── */
 .mentors {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
 }
 
@@ -897,6 +1008,12 @@ section {
     border-radius: var(--radius);
     background: var(--gray-50);
     border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.mentor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .mentor-av {
@@ -913,6 +1030,11 @@ section {
     flex-shrink: 0;
 }
 
+.mentor-info {
+    flex: 1;
+    min-width: 0;
+}
+
 .mentor-card h4 {
     font-size: 0.9rem;
     font-weight: 600;
@@ -922,6 +1044,17 @@ section {
 .mentor-card p {
     font-size: 0.78rem;
     color: var(--gray-500);
+}
+
+.mentor-card .team-ln {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.mentor-card .team-ln svg {
+    width: 16px;
+    height: 16px;
 }
 
 /* ── Recognition ── */
@@ -1246,9 +1379,26 @@ footer p {
 
     .prob-grid,
     .safe-grid,
-    .team-grid,
     .comp-grid {
         grid-template-columns: 1fr;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mentor-featured {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.25rem;
+    }
+
+    .mentor-featured-info {
+        text-align: center;
+    }
+
+    .mentor-featured-links {
+        justify-content: center;
     }
 
     .sol-grid {
@@ -1318,6 +1468,14 @@ footer p {
     }
 
     .mkt-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mentors {
         grid-template-columns: 1fr;
     }
 }
