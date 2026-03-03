@@ -21,34 +21,7 @@
         document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
     }
 
-    /* ── Counter animation (numbers increment on scroll) ── */
-    function initCounters() {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting) return;
 
-                    const el = entry.target;
-                    const target = +el.dataset.target;
-                    const duration = 1500;
-                    const start = performance.now();
-
-                    function update(now) {
-                        const progress = Math.min((now - start) / duration, 1);
-                        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-                        el.textContent = Math.round(target * eased);
-                        if (progress < 1) requestAnimationFrame(update);
-                    }
-
-                    requestAnimationFrame(update);
-                    observer.unobserve(el);
-                });
-            },
-            { threshold: 0.5 }
-        );
-
-        document.querySelectorAll('.counter').forEach((el) => observer.observe(el));
-    }
 
     /* ── Mobile nav toggle ── */
     function initMobileNav() {
@@ -88,7 +61,6 @@
     /* ── Init all ── */
     function init() {
         initScrollAnimations();
-        initCounters();
         initMobileNav();
         initRefToggle();
     }
