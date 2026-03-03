@@ -706,6 +706,20 @@ section {
     background: var(--white);
 }
 
+.team-photo {
+    max-width: 720px;
+    margin: 0 auto 3rem;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.team-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 .team-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
