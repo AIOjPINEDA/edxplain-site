@@ -591,6 +591,188 @@ section {
     border: 0;
 }
 
+/* ── Output Examples ── */
+#output-examples {
+    background: var(--white);
+}
+
+.ex-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.ex-card {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.ex-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+
+.ex-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid var(--gray-200);
+    transition: background 0.2s;
+}
+
+.ex-header:hover {
+    background: var(--gray-100);
+}
+
+.ex-icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.ex-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 0.15rem;
+}
+
+.ex-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.ex-badge.badge-green {
+    background: var(--accent-light);
+    color: var(--accent-dark);
+}
+
+.ex-badge.badge-purple {
+    background: #F3E8FF;
+    color: #7C3AED;
+}
+
+.ex-chevron {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.ex-header.active .ex-chevron {
+    transform: rotate(180deg);
+}
+
+.ex-preview {
+    padding: 1rem 1.5rem;
+}
+
+.ex-preview p {
+    font-size: 0.88rem;
+    color: var(--gray-700);
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-style: italic;
+}
+
+.ex-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.ex-body.open {
+    max-height: 2000px;
+}
+
+.ex-section {
+    padding: 0.85rem 1.5rem;
+    border-top: 1px solid var(--gray-200);
+}
+
+.ex-section:first-child {
+    border-top: none;
+}
+
+.ex-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+    margin-bottom: 0.4rem;
+}
+
+.ex-section p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--gray-700);
+}
+
+.ex-source {
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    border-left: 2px solid var(--gray-300);
+    padding-left: 0.6rem;
+}
+
+.ex-meds {
+    list-style: none;
+    padding: 0;
+}
+
+.ex-meds li {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--gray-700);
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.ex-meds li:last-child {
+    border-bottom: none;
+}
+
+.ex-meds li strong {
+    color: var(--gray-900);
+}
+
+.ex-section.ex-danger {
+    background: #FEF2F2;
+    border-left: 3px solid var(--danger);
+}
+
+.ex-section.ex-danger .ex-label {
+    color: var(--danger);
+}
+
+.ex-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--gray-400);
+    margin-top: 2rem;
+    padding: 0 2rem;
+}
+
 /* ── Pipeline ── */
 #pipeline {
     background: var(--dark);
@@ -1266,6 +1448,10 @@ footer p {
         grid-template-columns: 1fr 1fr;
     }
 
+    .ex-grid {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 /* ── Responsive: Mobile ── */
@@ -1315,6 +1501,14 @@ footer p {
 
     .pipe-steps {
         grid-template-columns: 1fr;
+    }
+
+    .ex-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ex-header h3 {
+        font-size: 0.9rem;
     }
 
     .hero-ctas {

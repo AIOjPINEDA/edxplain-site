@@ -58,11 +58,39 @@
         });
     }
 
+    /* ── Output examples accordion ── */
+    function initOutputExamples() {
+        document.querySelectorAll('.ex-header[data-toggle]').forEach(function (header) {
+            header.addEventListener('click', function () {
+                var targetId = header.getAttribute('data-toggle');
+                var body = document.getElementById(targetId);
+                if (!body) return;
+
+                var isOpen = body.classList.contains('open');
+
+                // Close all panels first
+                document.querySelectorAll('.ex-body.open').forEach(function (el) {
+                    el.classList.remove('open');
+                });
+                document.querySelectorAll('.ex-header.active').forEach(function (el) {
+                    el.classList.remove('active');
+                });
+
+                // Toggle current if it was closed
+                if (!isOpen) {
+                    body.classList.add('open');
+                    header.classList.add('active');
+                }
+            });
+        });
+    }
+
     /* ── Init all ── */
     function init() {
         initScrollAnimations();
         initMobileNav();
         initRefToggle();
+        initOutputExamples();
     }
 
     // Run when DOM is ready
